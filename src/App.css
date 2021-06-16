@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
+
+/* variable setup */
+:root {
+  --main-bg-colour: rgba(32, 32, 32, 1);
+  --secondary-bg-colour: rgba(255, 99, 0, 1);
+  --light-orange: rgba(236, 127, 55, 1);
+  --burnt-orange: rgba(190, 79, 12, 1);
+  --main-font-colour: whitesmoke;
+  --border-colour: rgba(200, 200, 200, 0.5);
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default padding */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Set core body defaults */
+body {
+  font-family: 'Signika', sans-serif;
+  font-family: 'Comfortaa', cursive;
+  background-color: var(--main-bg-colour);
+  color: var(--main-font-colour);
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-size: 16px;
+  margin: 0;
+}
+body p {
+  font-size: 14px;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+a:link {
+  text-decoration: none;
+}
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* General global stye settings */
+body {
+  font-family: 'Signika', sans-serif;
+  font-family: 'Comfortaa', cursive;
+  background-color: var(--main-bg-colour);
+  color: var(--main-font-colour);
+}
+
+section {
+  min-height: calc(100vh - 160px - 1.4em);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+p {
+  line-height: 1.2;
+  font-size: clamp(1.6rem, 1.25vh, 1.25rem);
+  font-size: max(1.6rem, 1.125vw);
+  text-align: left;
+  margin-bottom: 0.4rem;
+}
