@@ -1,12 +1,16 @@
 <template>
   <section id="blog">
-    <h1 class="underline">{{ title }}</h1>
-    <p>{{ description }}</p>
-    <p>{{ pubDate }}</p>
+    <div v-for="blog in blogs" :key="blog.id">
+      <h1>{{ blog.heading }}</h1>
+      <p>{{ blog.message }}</p>
+      <p>{{ blog.posted }}</p>
+    </div>
   </section>
 </template>
 
 <script>
+import $Store from '../../store/index';
+import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
@@ -16,6 +20,12 @@ export default {
       description:
         'This the first blog and this will be a full story. I will be creating an API to read from a \n DB',
     };
+  },
+  computed: {
+    ...mapGetters(['blogs']),
+  },
+  created() {
+    $Store.dispatch('getBlogs');
   },
 };
 </script>
