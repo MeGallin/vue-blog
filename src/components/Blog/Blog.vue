@@ -13,13 +13,7 @@ import $Store from '../../store/index';
 import { mapGetters } from 'vuex';
 export default {
   data() {
-    return {
-      name: 'Blog',
-      pubDate: new Date(),
-      title: 'Blog Number one',
-      description:
-        'This the first blog and this will be a full story. I will be creating an API to read from a \n DB',
-    };
+    return {};
   },
   computed: {
     ...mapGetters(['blogs']),
