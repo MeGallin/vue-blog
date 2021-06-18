@@ -122,3 +122,21 @@ p {
   text-align: left;
   margin-bottom: 0.4rem;
 }
+
+h1,
+h2,
+h3 {
+  display: inline-block;
+}
+.underline {
+  border-bottom: var(--main-font-colour) 1px solid;
+  margin-bottom: 0.4em;
+}
+
+/* Fieldset for all the forms */
+.form-style fieldset {
+  border: none;
+}
+fieldset.fieldSet {
+  border: 1px solid rgba(100, 100, 100, 0.7);
+}
