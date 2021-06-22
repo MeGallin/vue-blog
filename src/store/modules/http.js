@@ -4,13 +4,16 @@ const state = {
   postBlogData: [],
   regData: [],
   userData: {},
+  blogId: null,
 };
 const getters = {
   blogs: (state) => state.blogs,
   postBlogData: (state) => state.postBlogData,
   regData: (state) => state.regData,
   userData: (state) => state.userData,
+  blogId: (state) => state.blogId,
 };
+
 const actions = {
   async getBlogs(context) {
     const url =
@@ -58,6 +61,17 @@ const actions = {
       console.log(error);
     }
   },
+  async deleteBlog(context, id) {
+    const url = `http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/delete.php?id=${id}`;
+    try {
+      // axios.defaults.headers.common['Access-Control-Allow-Origin'];
+      await axios.delete(url);
+      context.commit('SET_DELETE_BLOG', id);
+      context.dispatch('getBlogs');
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 const mutations = {
   SET_BLOGS(state, blogs) {
@@ -71,6 +85,9 @@ const mutations = {
   },
   SET_USER_DATA(state, userData) {
     state.userData = userData;
+  },
+  SET_DELETE_BLOG(state, id) {
+    state.blogId = id;
   },
 };
 
