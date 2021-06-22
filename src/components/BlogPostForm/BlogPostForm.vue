@@ -51,13 +51,15 @@ export default {
       this.heading = heading;
       this.message = message;
 
-      const rpostBlogData = {
+      const postBlogData = {
         name: this.name,
         heading: this.heading,
         message: this.message,
       };
-      console.log('Component', rpostBlogData);
-      $Store.dispatch('postBlog', rpostBlogData);
+      $Store.dispatch('postBlog', postBlogData);
+      this.name = '';
+      this.heading = '';
+      this.message = '';
     },
   },
 };
