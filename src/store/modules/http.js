@@ -72,6 +72,16 @@ const actions = {
       console.log(error);
     }
   },
+  async updateBlog(context, payload) {
+    const url = `http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/update.php`;
+    try {
+      await axios.put(url, payload);
+      context.commit('SET_UPDATE_FORM', payload);
+      context.dispatch('getBlogs');
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 const mutations = {
   SET_BLOGS(state, blogs) {
@@ -88,6 +98,9 @@ const mutations = {
   },
   SET_DELETE_BLOG(state, id) {
     state.blogId = id;
+  },
+  SET_UPDATE_FORM(state, payload) {
+    state.blogs = payload;
   },
 };
 
