@@ -56,6 +56,7 @@ const actions = {
 
     try {
       await axios.post(url, userData);
+      console.log(userData);
       context.commit('SET_USER_DATA', userData);
     } catch (error) {
       console.log(error);

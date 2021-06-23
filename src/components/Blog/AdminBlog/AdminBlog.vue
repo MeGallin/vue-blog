@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import $Store from '../../store/index';
+import $Store from '../../../store/index';
 import { mapGetters } from 'vuex';
 export default {
   data() {
@@ -113,4 +113,4 @@ export default {
 };
 </script>
 
-<style scoped src="./Blog.css"></style>
+<style scoped src="./AdminBlog.css"></style>
