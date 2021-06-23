@@ -6,6 +6,7 @@
         <p>{{ blog.message }}</p>
         <p>{{ blog.posted }}</p>
         <button @click="handleDeleteBlog(blog.id)">Delete Post</button>
+
         <button v-if="!showUpdateForm" @click="showForm(blog.id)">
           Edit Post
         </button>
@@ -67,7 +68,7 @@
 </template>
 
 <script>
-import $Store from '../../store/index';
+import $Store from '../../../store/index';
 import { mapGetters } from 'vuex';
 export default {
   data() {
@@ -112,4 +113,4 @@ export default {
 };
 </script>
 
-<style scoped src="./Blog.css"></style>
+<style scoped src="./AdminBlog.css"></style>

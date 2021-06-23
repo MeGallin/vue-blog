@@ -1,7 +1,7 @@
 <template>
   <div>
     <fieldset class="fieldSet">
-      <legend>login</legend>
+      <legend>login form</legend>
       <form
         id="loginForm"
         @submit.prevent

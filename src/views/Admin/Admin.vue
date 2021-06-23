@@ -1,16 +1,16 @@
 <template>
   <section id="admin">
     <h1>{{ name }}</h1>
-    <LoginForm />
+    <Admin />
     <BlogPostForm />
-    <Blog />
+    <AdminBlog />
   </section>
 </template>
 
 <script>
-import LoginForm from '@/components/LoginForm/LoginForm';
+import Admin from '@/components/Admin/Admin';
 import BlogPostForm from '@/components/BlogPostForm/BlogPostForm';
-import Blog from '@/components/Blog/Blog';
+import AdminBlog from '@/components/Blog/AdminBlog/AdminBlog';
 
 export default {
   data() {
@@ -19,9 +19,9 @@ export default {
     };
   },
   components: {
-    LoginForm,
+    Admin,
     BlogPostForm,
-    Blog,
+    AdminBlog,
   },
 };
 </script>
