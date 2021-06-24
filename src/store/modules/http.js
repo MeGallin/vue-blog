@@ -72,6 +72,11 @@ const actions = {
       console.log(error);
     }
   },
+  async userLogout(context, payload) {
+    console.log(payload);
+    context.commit('SET_IS_AUTHENTICATED', payload);
+    $router.replace({ name: 'Home' });
+  },
   async deleteBlog(context, id) {
     const url = `http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/delete.php?id=${id}`;
     try {

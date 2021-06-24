@@ -39,6 +39,13 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: () => import('../views/Registration/Registration.vue'),
+    beforeEnter: (to, from, next) => {
+      if ($Store.getters.isAuthenticated === false) {
+        next('/login');
+      } else {
+        next();
+      }
+    },
   },
 ];
 
