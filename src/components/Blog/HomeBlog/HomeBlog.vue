@@ -1,5 +1,6 @@
 <template>
   <div v-if="blogs !== '0 results'">
+    {{ userData }} {{ isAuthenticated }}
     <div v-for="blog in blogs" :key="blog.id">
       <h1>{{ blog.heading }}</h1>
       <p>{{ blog.message }}</p>
@@ -14,7 +15,7 @@ import $Store from '../../../store/index';
 import { mapGetters } from 'vuex';
 export default {
   computed: {
-    ...mapGetters(['blogs']),
+    ...mapGetters(['blogs', 'userData', 'isAuthenticated']),
   },
   created() {
     $Store.dispatch('getBlogs');
