@@ -73,14 +73,12 @@ const actions = {
     }
   },
   async userLogout(context, payload) {
-    console.log(payload);
     context.commit('SET_IS_AUTHENTICATED', payload);
-    $router.replace({ name: 'Home' });
+    $router.push('/').catch(() => {}); // prevent router duplication
   },
   async deleteBlog(context, id) {
     const url = `http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/delete.php?id=${id}`;
     try {
-      // axios.defaults.headers.common['Access-Control-Allow-Origin'];
       await axios.delete(url);
       context.commit('SET_DELETE_BLOG', id);
       context.dispatch('getBlogs');

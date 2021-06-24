@@ -7,6 +7,9 @@
       <p>Post by {{ blog.name }}</p>
     </div>
   </div>
+  <div v-else>
+    <p>No Post(s)</p>
+  </div>
 </template>
 
 <script>

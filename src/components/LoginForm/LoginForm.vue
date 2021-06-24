@@ -61,7 +61,6 @@ export default {
     },
     counter() {
       this.count += 1;
-      console.log(this.count);
     },
   },
 };
