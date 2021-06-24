@@ -1,6 +1,9 @@
+// https://www.youtube.com/watch?v=30XtkPC8nHI
+// REF tutorial
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home/Home.vue';
+import $Store from '../store/index';
 
 Vue.use(VueRouter);
 
@@ -24,6 +27,13 @@ const routes = [
     path: '/admin',
     name: 'Admin',
     component: () => import('../views/Admin/Admin.vue'),
+    beforeEnter: (to, from, next) => {
+      if ($Store.getters.isAuthenticated === false) {
+        next('/login');
+      } else {
+        next();
+      }
+    },
   },
   {
     path: '/register',

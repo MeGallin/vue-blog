@@ -1,10 +1,12 @@
 import axios from 'axios';
+import $router from '../../router/index';
 const state = {
   blogs: [],
   postBlogData: [],
   regData: [],
   userData: {},
   blogId: null,
+  isAuthenticated: false,
 };
 const getters = {
   blogs: (state) => state.blogs,
@@ -12,6 +14,7 @@ const getters = {
   regData: (state) => state.regData,
   userData: (state) => state.userData,
   blogId: (state) => state.blogId,
+  isAuthenticated: (state) => state.isAuthenticated,
 };
 
 const actions = {
@@ -26,7 +29,6 @@ const actions = {
     }
   },
   async userRegistration(context, regData) {
-    console.log('HTTP ACTION:', regData.name);
     const convertedData = JSON.stringify(regData);
     const url =
       'http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/register.php';
@@ -55,9 +57,17 @@ const actions = {
       'http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/login.php';
 
     try {
-      await axios.post(url, userData);
-      console.log(userData);
-      context.commit('SET_USER_DATA', userData);
+      const res = await axios.post(url, userData);
+
+      res.data.filter((email) => {
+        if (email.email === userData.email) {
+          context.commit('SET_IS_AUTHENTICATED', true);
+          context.commit('SET_USER_DATA', res.data);
+          $router.replace({ name: 'Admin' });
+        } else {
+          context.commit('SET_IS_AUTHENTICATED', false);
+        }
+      });
     } catch (error) {
       console.log(error);
     }
@@ -102,6 +112,9 @@ const mutations = {
   },
   SET_UPDATE_FORM(state, payload) {
     state.blogs = payload;
+  },
+  SET_IS_AUTHENTICATED(state, payload) {
+    state.isAuthenticated = payload;
   },
 };
 
