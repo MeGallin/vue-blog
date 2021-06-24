@@ -28,7 +28,7 @@
         <div>
           <label for="pwd"
             >Password
-            <input type="pwd" name="pwd" id="regPwd" v-model="pwd" />
+            <input type="password" name="pwd" id="regPwd" v-model="pwd" />
           </label>
         </div>
         <div>

@@ -25,7 +25,12 @@
       <h3>Error</h3>
       <p>Either your email or password is in-correct.</p>
       <p>Please try again.</p>
-      <p>Register: <router-link to="/register">Register</router-link></p>
+    </div>
+    <div>
+      <p>
+        Register:
+        <router-link to="/contact">Countact Us</router-link>
+      </p>
     </div>
   </div>
 </template>
