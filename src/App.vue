@@ -1,7 +1,8 @@
 <template>
-  <div id="app">
+  <div id="app-wrapper">
     <Header />
     <router-view />
+
     <Footer />
   </div>
 </template>
@@ -13,7 +14,6 @@ import Header from '@/components/Header/Header.vue';
 import Footer from '@/components/Footer/Footer.vue';
 
 export default {
-  name: 'Home',
   components: {
     Header,
     Footer,
