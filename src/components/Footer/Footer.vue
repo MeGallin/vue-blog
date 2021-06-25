@@ -1,12 +1,14 @@
 <template>
-  <footer>Footer {{ Footer }}</footer>
+  <footer>
+    <div>{{ title }}</div>
+  </footer>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      Footer: 'Footer COMP',
+      title: 'Footer COMP',
     };
   },
 };

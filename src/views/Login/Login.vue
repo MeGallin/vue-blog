@@ -1,6 +1,5 @@
 <template>
   <section id="login">
-    <h1>{{ title }}</h1>
     <LoginForm />
   </section>
 </template>
@@ -9,9 +8,7 @@
 import LoginForm from '@/components/LoginForm/LoginForm';
 export default {
   data() {
-    return {
-      title: 'Login View',
-    };
+    return {};
   },
 
   components: {
