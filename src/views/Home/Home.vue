@@ -1,12 +1,12 @@
 <template>
   <section id="home">
-    <Blog />
+    <HomeBlog />
   </section>
 </template>
 
 <script>
 // @ is an alias to /src
-import Blog from '@/components/Blog/Blog';
+import HomeBlog from '@/components/Blog/HomeBlog/HomeBlog';
 
 export default {
   data() {
@@ -15,7 +15,7 @@ export default {
     };
   },
   components: {
-    Blog,
+    HomeBlog,
   },
 };
 </script>

@@ -1,16 +1,22 @@
 import axios from 'axios';
+import $router from '../../router/index';
 const state = {
   blogs: [],
   postBlogData: [],
   regData: [],
   userData: {},
+  blogId: null,
+  isAuthenticated: false,
 };
 const getters = {
   blogs: (state) => state.blogs,
   postBlogData: (state) => state.postBlogData,
   regData: (state) => state.regData,
   userData: (state) => state.userData,
+  blogId: (state) => state.blogId,
+  isAuthenticated: (state) => state.isAuthenticated,
 };
+
 const actions = {
   async getBlogs(context) {
     const url =
@@ -23,7 +29,6 @@ const actions = {
     }
   },
   async userRegistration(context, regData) {
-    console.log('HTTP ACTION:', regData.name);
     const convertedData = JSON.stringify(regData);
     const url =
       'http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/register.php';
@@ -52,8 +57,41 @@ const actions = {
       'http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/login.php';
 
     try {
-      await axios.post(url, userData);
-      context.commit('SET_USER_DATA', userData);
+      const res = await axios.post(url, userData);
+
+      res.data.filter((email) => {
+        if (email.email === userData.email) {
+          context.commit('SET_IS_AUTHENTICATED', true);
+          context.commit('SET_USER_DATA', res.data);
+          $router.replace({ name: 'Admin' });
+        } else {
+          context.commit('SET_IS_AUTHENTICATED', false);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async userLogout(context, payload) {
+    context.commit('SET_IS_AUTHENTICATED', payload);
+    $router.push('/').catch(() => {}); // prevent router duplication
+  },
+  async deleteBlog(context, id) {
+    const url = `http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/delete.php?id=${id}`;
+    try {
+      await axios.delete(url);
+      context.commit('SET_DELETE_BLOG', id);
+      context.dispatch('getBlogs');
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async updateBlog(context, payload) {
+    const url = `http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/update.php`;
+    try {
+      await axios.put(url, payload);
+      context.commit('SET_UPDATE_FORM', payload);
+      context.dispatch('getBlogs');
     } catch (error) {
       console.log(error);
     }
@@ -71,6 +109,15 @@ const mutations = {
   },
   SET_USER_DATA(state, userData) {
     state.userData = userData;
+  },
+  SET_DELETE_BLOG(state, id) {
+    state.blogId = id;
+  },
+  SET_UPDATE_FORM(state, payload) {
+    state.blogs = payload;
+  },
+  SET_IS_AUTHENTICATED(state, payload) {
+    state.isAuthenticated = payload;
   },
 };
 

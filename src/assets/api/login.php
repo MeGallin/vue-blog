@@ -8,8 +8,8 @@ if(isset($postdata) && !empty($postdata))
   $request = json_decode($postdata);
 if(isset($postdata) && !empty($postdata))
 {
-    $email = mysqli_real_escape_string($conn, trim($request->username));
-    $pwd = mysqli_real_escape_string($conn, trim($request->password));
+    $email = mysqli_real_escape_string($conn, trim($request->email));
+    $pwd = mysqli_real_escape_string($conn, trim($request->pwd));
 
     $pwd = md5($pwd);
    

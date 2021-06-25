@@ -1,0 +1,7 @@
+#home section {
+  display: flex;
+  gap: 1em;
+}
+#home section > * {
+  width: 100%;
+}

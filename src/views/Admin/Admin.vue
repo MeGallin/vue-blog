@@ -1,27 +1,22 @@
 <template>
   <section id="admin">
-    <h1>{{ name }}</h1>
-    <LoginForm />
     <BlogPostForm />
-    <Blog />
+    <hr />
+    <AdminBlog />
   </section>
 </template>
 
 <script>
-import LoginForm from '@/components/LoginForm/LoginForm';
 import BlogPostForm from '@/components/BlogPostForm/BlogPostForm';
-import Blog from '@/components/Blog/Blog';
+import AdminBlog from '@/components/Blog/AdminBlog/AdminBlog';
 
 export default {
   data() {
-    return {
-      name: 'Admin Page',
-    };
+    return {};
   },
   components: {
-    LoginForm,
     BlogPostForm,
-    Blog,
+    AdminBlog,
   },
 };
 </script>

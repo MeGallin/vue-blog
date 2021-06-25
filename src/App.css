@@ -42,12 +42,14 @@ dd {
 }
 
 /* Set core body defaults */
+html {
+  height: 100%;
+}
 body {
   font-family: 'Signika', sans-serif;
   font-family: 'Comfortaa', cursive;
   background-color: var(--main-bg-colour);
   color: var(--main-font-colour);
-  min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
@@ -102,17 +104,28 @@ select {
 }
 
 /* General global stye settings */
+
 body {
-  font-family: 'Signika', sans-serif;
-  font-family: 'Comfortaa', cursive;
-  background-color: var(--main-bg-colour);
-  color: var(--main-font-colour);
+  display: flex;
+  min-height: 100%;
+}
+#app-wrapper {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  min-height: 100%;
+}
+section {
+  max-width: 1200px;
+  width: 90vw;
+  margin: 0 auto;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-section {
-  min-height: calc(100vh - 160px - 1.4em);
-  max-width: 1200px;
-  margin: 0 auto;
+footer {
+  margin-top: auto;
 }
 
 p {
@@ -132,11 +145,85 @@ h3 {
   border-bottom: var(--main-font-colour) 1px solid;
   margin-bottom: 0.4em;
 }
+/* General form styles */
+form {
+  background-image: linear-gradient(
+    to right,
+    rgba(100, 100, 100, 0.7),
+    rgba(51, 51, 51, 0.1)
+  );
+  margin: 0 auto;
+  border-radius: 1px;
+  color: var(--main-font-colour);
+  width: 100%;
+  padding: 10px 20px;
+}
+form legend {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+form label {
+  display: block;
+  margin-bottom: 8px;
+}
+form input[type='text'],
+form input[type='email'],
+form input[type='password'],
+form textarea {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-left: 4px solid var(--secondary-bg-colour);
+  border-radius: 4px;
+  font-size: 15px;
+  margin: 0;
+  outline: 0;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+  margin-bottom: 30px;
+}
+form input[type='text'].entered {
+  border-left: greenyellow 4px solid;
+}
+form input[type='email'].entered {
+  border-left: greenyellow 4px solid;
+}
+form textarea.entered {
+  border-left: greenyellow 4px solid;
+}
+form input[type='text'].invalid {
+  border-left: var(--secondary-bg-colour) 4px solid;
+}
+form input[type='email'].invalid {
+  border-left: var(--secondary-bg-colour) 4px solid;
+}
+form textarea.invalid {
+  border-left: var(--secondary-bg-colour) 4px solid;
+}
 
 /* Fieldset for all the forms */
-.form-style fieldset {
-  border: none;
-}
+
 fieldset.fieldSet {
   border: 1px solid rgba(100, 100, 100, 0.7);
 }
+/* SCROLL-BAR CUSTOM STYLING */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: crimson;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: crimson;
+}
+/* SCROLL-BAR CUSTOM STYLING */
