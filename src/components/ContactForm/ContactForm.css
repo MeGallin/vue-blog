@@ -1,0 +1,7 @@
+.small-form-text {
+  font-size: 0.65em;
+}
+.spanWrapper {
+  display: flex;
+  justify-content: space-between;
+}
