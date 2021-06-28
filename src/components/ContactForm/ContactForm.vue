@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import $Store from '../../store/index';
 export default {
   data() {
     return {
@@ -80,13 +81,13 @@ export default {
   },
   methods: {
     handleContact(name, email, message) {
-      const formdata = {
+      const formData = {
         name: name,
         email: email,
         message: message,
       };
-
-      console.log(formdata);
+      console.log(JSON.stringify(formData));
+      $Store.dispatch('postFormData', JSON.stringify(formData));
 
       this.thankYouMessage = `Thank you ${this.name} for making contact. We will be in contact shortly.`;
       setTimeout(() => {

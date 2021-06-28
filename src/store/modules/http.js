@@ -1,5 +1,7 @@
 import axios from 'axios';
 import $router from '../../router/index';
+import { API_URL } from '../../__env_dev';
+
 const state = {
   blogs: [],
   postBlogData: [],
@@ -19,8 +21,7 @@ const getters = {
 
 const actions = {
   async getBlogs(context) {
-    const url =
-      'http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/getBlog.php';
+    const url = API_URL.getBlogsUrl;
     try {
       const res = await axios.get(url);
       context.commit('SET_BLOGS', res.data);
@@ -30,8 +31,7 @@ const actions = {
   },
   async userRegistration(context, regData) {
     const convertedData = JSON.stringify(regData);
-    const url =
-      'http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/register.php';
+    const url = API_URL.getUserRegistrationUrl;
     try {
       await axios.post(url, convertedData);
       context.commit('SET_REGISTRATION_DATA', regData);
@@ -41,8 +41,7 @@ const actions = {
   },
   async postBlog(context, blogPostData) {
     const convertedData = JSON.stringify(blogPostData);
-    const url =
-      'http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/addBlog.php';
+    const url = API_URL.postBlogUrl;
 
     try {
       await axios.post(url, convertedData);
@@ -53,8 +52,7 @@ const actions = {
     }
   },
   async userLogin(context, userData) {
-    const url =
-      'http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/login.php';
+    const url = API_URL.userLoginUrl;
 
     try {
       const res = await axios.post(url, userData);
@@ -77,9 +75,9 @@ const actions = {
     $router.push('/').catch(() => {}); // prevent router duplication
   },
   async deleteBlog(context, id) {
-    const url = `http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/delete.php?id=${id}`;
+    const url = API_URL.deleteBlogUrl;
     try {
-      await axios.delete(url);
+      await axios.delete(url + id);
       context.commit('SET_DELETE_BLOG', id);
       context.dispatch('getBlogs');
     } catch (error) {
@@ -87,11 +85,21 @@ const actions = {
     }
   },
   async updateBlog(context, payload) {
-    const url = `http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/update.php`;
+    const url = API_URL.updateBlogUrl;
     try {
       await axios.put(url, payload);
       context.commit('SET_UPDATE_FORM', payload);
       context.dispatch('getBlogs');
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  // Action for the contact form
+  async postFormData(context, payload) {
+    console.log(context);
+    const url = API_URL.postFormUrl;
+    try {
+      await axios.post(url, payload);
     } catch (error) {
       console.log(error);
     }
