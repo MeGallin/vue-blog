@@ -5,6 +5,8 @@ import { API_URL } from '../../__env_dev';
 const state = {
   blogs: [],
   postBlogData: [],
+  postLikeData: {},
+  postDisLikeData: {},
   regData: [],
   userData: {},
   blogId: null,
@@ -13,6 +15,8 @@ const state = {
 const getters = {
   blogs: (state) => state.blogs,
   postBlogData: (state) => state.postBlogData,
+  postLikeData: (state) => state.postLikeData,
+  postDisLikeData: (state) => state.postDisLikeData,
   regData: (state) => state.regData,
   userData: (state) => state.userData,
   blogId: (state) => state.blogId,
@@ -46,6 +50,28 @@ const actions = {
     try {
       await axios.post(url, convertedData);
       context.commit('SET_POST_DATA', blogPostData);
+      context.dispatch('getBlogs');
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async addLike(context, likeData) {
+    const convertedData = JSON.stringify(likeData);
+    const url = API_URL.postLikesUrl;
+    try {
+      await axios.put(url, convertedData);
+      context.commit('SET_POST_LIKE', likeData);
+      context.dispatch('getBlogs');
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async addDisLike(context, disLikeData) {
+    const convertedData = JSON.stringify(disLikeData);
+    const url = API_URL.postDisLikesUrl;
+    try {
+      await axios.put(url, convertedData);
+      context.commit('SET_POST_LIKE', disLikeData);
       context.dispatch('getBlogs');
     } catch (error) {
       console.log(error);
@@ -114,6 +140,12 @@ const mutations = {
   },
   SET_POST_DATA(state, postBlogData) {
     state.postBlogData = postBlogData;
+  },
+  SET_POST_LIKE(state, postLikeData) {
+    state.postLikeData = postLikeData;
+  },
+  SET_POST_DIS_LIKE(state, postDisLikeData) {
+    state.postDisLikeData = postDisLikeData;
   },
   SET_USER_DATA(state, userData) {
     state.userData = userData;
