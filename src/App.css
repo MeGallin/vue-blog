@@ -120,8 +120,8 @@ section {
   max-width: 1200px;
   width: 90vw;
   margin: 0 auto;
-  max-height: 90vh;
-  overflow-y: auto;
+  /* max-height: 90vh; */
+  /* overflow-y: auto; */
 }
 
 footer {
