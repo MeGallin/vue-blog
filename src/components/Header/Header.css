@@ -1,3 +1,5 @@
 nav {
   background-color: crimson;
+  display: flex;
+  justify-content: space-between;
 }
