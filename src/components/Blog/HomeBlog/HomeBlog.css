@@ -13,3 +13,17 @@
   display: flex;
   justify-content: space-between;
 }
+.text-small {
+  font-size: 0.65rem;
+  padding-left: 0.3rem;
+}
+.clap-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.likes {
+  cursor: pointer;
+}
+.dislikes {
+  cursor: pointer;
+}
