@@ -5,6 +5,7 @@
         <h1>{{ blog.heading }} [id: {{ blog.id }}]</h1>
         <p>{{ blog.message }}</p>
         <p>{{ blog.posted }}</p>
+        <p>{{ blog.name }}</p>
         <button @click="handleDeleteBlog(blog.id)">Delete Post</button>
 
         <button v-if="!showUpdateForm" @click="showForm(blog.id)">
