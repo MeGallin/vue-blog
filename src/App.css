@@ -141,8 +141,12 @@ h2,
 h3 {
   display: inline-block;
 }
-.underline {
+.underline-light {
   border-bottom: var(--main-font-colour) 1px solid;
+  margin-bottom: 0.4em;
+}
+.underline-dark {
+  border-bottom: var(--main-bg-colour) 1px solid;
   margin-bottom: 0.4em;
 }
 /* General form styles */

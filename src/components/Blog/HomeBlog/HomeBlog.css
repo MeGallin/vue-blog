@@ -5,3 +5,11 @@
   background-color: var(--main-font-colour);
   color: var(--main-bg-colour);
 }
+.item:nth-child(even) {
+  background-color: var(--main-font-colour);
+  color: var(--main-bg-colour);
+}
+.blog-footer-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
