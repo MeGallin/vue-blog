@@ -120,8 +120,8 @@ section {
   max-width: 1200px;
   width: 90vw;
   margin: 0 auto;
-  max-height: 90vh;
-  overflow-y: auto;
+  /* max-height: 90vh; */
+  /* overflow-y: auto; */
 }
 
 footer {
@@ -217,13 +217,13 @@ fieldset.fieldSet {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--main-background-colour);
 }
 ::-webkit-scrollbar-thumb {
-  background: crimson;
+  background: var(--main-font-colour);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: crimson;
+  background: var(--border-colour);
 }
 /* SCROLL-BAR CUSTOM STYLING */

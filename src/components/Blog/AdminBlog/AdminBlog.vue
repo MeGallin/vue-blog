@@ -1,5 +1,5 @@
 <template>
-  <section id="blogs">
+  <section id="admin">
     <div v-if="blogs !== '0 results'">
       <div v-for="blog in blogs" :key="blog.id">
         <h1>{{ blog.heading }} [id: {{ blog.id }}]</h1>
