@@ -28,9 +28,7 @@
           </label>
         </div>
         <div>
-          <button type="submit" @click="counter()" :disabled="isDisabled">
-            Submit
-          </button>
+          <button type="submit" :disabled="isDisabled">Submit</button>
         </div>
       </form>
     </fieldset>
@@ -53,7 +51,6 @@ export default {
     return {
       email: '',
       pwd: '',
-      count: null,
       isDisabled: true,
     };
   },
