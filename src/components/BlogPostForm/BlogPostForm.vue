@@ -10,24 +10,41 @@
         <div>
           <label for="name"
             >Name
-            <input type="text" name="name" id="name" v-model="name" />
+            <input
+              type="text"
+              name="name"
+              id="name"
+              v-model="name"
+              :class="!this.name ? 'invalid' : 'entered'"
+            />
           </label>
         </div>
         <div>
           <label for="heading"
             >Title
-            <input type="text" name="heading" id="heading" v-model="heading" />
+            <input
+              type="text"
+              name="heading"
+              id="heading"
+              v-model="heading"
+              :class="!this.heading ? 'invalid' : 'entered'"
+            />
           </label>
         </div>
         <div>
           <label for="message"
             >Blog
-            <textarea name="message" id="message" v-model="message" />
+            <textarea
+              name="message"
+              id="message"
+              v-model="message"
+              :class="this.message.length < 10 ? 'invalid' : 'entered'"
+            />
           </label>
         </div>
 
         <div>
-          <button type="submit">Submit</button>
+          <button type="submit" :disabled="isDisabled">Submit</button>
         </div>
       </form>
     </fieldset>
@@ -43,6 +60,7 @@ export default {
       name: '',
       heading: '',
       message: '',
+      isDisabled: true,
     };
   },
   methods: {
@@ -60,6 +78,24 @@ export default {
       this.name = '';
       this.heading = '';
       this.message = '';
+    },
+  },
+  watch: {
+    name(val) {
+      this.name = val;
+      if (this.name.length != '' && this.heading.length != '') {
+        this.isDisabled = false;
+      } else {
+        this.isDisabled = true;
+      }
+    },
+    heading(val) {
+      this.heading = val;
+      if (this.heading.length != '' && this.name.length != '') {
+        this.isDisabled = false;
+      } else {
+        this.isDisabled = true;
+      }
     },
   },
 };
