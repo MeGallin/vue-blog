@@ -237,3 +237,7 @@ fieldset.fieldSet {
   background: var(--border-colour);
 }
 /* SCROLL-BAR CUSTOM STYLING */
+
+.img-fit {
+  max-height: 50vh;
+}

@@ -31,7 +31,7 @@
             />
           </label>
         </div>
-        <div>
+        <!-- <div>
           <label for="message"
             >Blog
             <textarea
@@ -41,8 +41,8 @@
               :class="this.message.length < 10 ? 'invalid' : 'entered'"
             />
           </label>
-        </div>
-
+        </div> -->
+        <vue-editor v-model="message" class="text-editor"></vue-editor>
         <div>
           <button type="submit" :disabled="isDisabled">Submit</button>
         </div>
@@ -53,6 +53,7 @@
 
 <script>
 import $Store from '../../store/index';
+import { VueEditor } from 'vue2-editor';
 export default {
   data() {
     return {
@@ -62,6 +63,9 @@ export default {
       message: '',
       isDisabled: true,
     };
+  },
+  components: {
+    VueEditor,
   },
   methods: {
     handleBlogPost(name, heading, message) {

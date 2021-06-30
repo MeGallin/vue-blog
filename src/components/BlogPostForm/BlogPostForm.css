@@ -1,0 +1,4 @@
+.text-editor {
+  background-color: var(--main-font-colour);
+  color: var(--main-bg-colour);
+}

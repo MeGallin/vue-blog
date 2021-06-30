@@ -2,7 +2,8 @@
   <div v-if="blogs !== '0 results'">
     <div v-for="blog in blogs" :key="blog.id" class="item">
       <h1 class="underline-dark">{{ blog.heading }}</h1>
-      <p>{{ blog.message }}</p>
+
+      <span v-html="blog.message"></span>
       <div class="blog-footer-wrapper">
         <p>{{ blog.posted }}</p>
         <p>Post by {{ blog.name }}</p>
