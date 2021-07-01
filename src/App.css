@@ -215,6 +215,7 @@ form input[type='password'].invalid {
 }
 form textarea.invalid {
   border-left: var(--secondary-bg-colour) 4px solid;
+  min-height: 250px;
 }
 
 /* Fieldset for all the forms */
@@ -238,6 +239,7 @@ fieldset.fieldSet {
 }
 /* SCROLL-BAR CUSTOM STYLING */
 
+/* Home page blog view images */
 .img-fit {
-  max-height: 50vh;
+  max-height: 30%;
 }

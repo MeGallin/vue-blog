@@ -31,7 +31,21 @@
             />
           </label>
         </div>
-        <!-- <div>
+        <div>
+          <input
+            @click="handleToggle()"
+            type="checkbox"
+            name="toggle"
+            id="toggle"
+            v-model="toggle"
+            checked="true"
+          />
+          <label for="toggle">
+            <span v-if="toggle">SHOW EDITOR</span>
+            <span v-else>SHOW TEXTAREA </span>
+          </label>
+        </div>
+        <div v-if="toggle">
           <label for="message"
             >Blog
             <textarea
@@ -41,8 +55,12 @@
               :class="this.message.length < 10 ? 'invalid' : 'entered'"
             />
           </label>
-        </div> -->
-        <vue-editor v-model="message" class="text-editor"></vue-editor>
+        </div>
+        <div v-else>
+          Blog
+          <vue-editor v-model="message" class="text-editor"></vue-editor>
+        </div>
+
         <div>
           <button type="submit" :disabled="isDisabled">Submit</button>
         </div>
@@ -58,6 +76,7 @@ export default {
   data() {
     return {
       title: 'Add Blog Post',
+      toggle: true,
       name: '',
       heading: '',
       message: '',
@@ -68,6 +87,14 @@ export default {
     VueEditor,
   },
   methods: {
+    handleToggle() {
+      const toggleValue = event.target.checked;
+      if (toggleValue) {
+        this.toggle = true;
+      } else {
+        this.toggle = false;
+      }
+    },
     handleBlogPost(name, heading, message) {
       this.name = name;
       this.heading = heading;
