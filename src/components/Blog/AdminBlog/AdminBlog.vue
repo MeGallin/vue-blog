@@ -115,3 +115,4 @@ export default {
 </script>
 
 <style scoped src="./AdminBlog.css"></style>
+// https://github.com/davidroyer/vue2-editor

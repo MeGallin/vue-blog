@@ -32,6 +32,20 @@
           </label>
         </div>
         <div>
+          <input
+            @click="handleToggle()"
+            type="checkbox"
+            name="toggle"
+            id="toggle"
+            v-model="toggle"
+            checked="true"
+          />
+          <label for="toggle">
+            <span v-if="toggle">SHOW EDITOR</span>
+            <span v-else>SHOW TEXTAREA </span>
+          </label>
+        </div>
+        <div v-if="toggle">
           <label for="message"
             >Blog
             <textarea
@@ -41,6 +55,10 @@
               :class="this.message.length < 10 ? 'invalid' : 'entered'"
             />
           </label>
+        </div>
+        <div v-else>
+          Blog
+          <vue-editor v-model="message" class="text-editor"></vue-editor>
         </div>
 
         <div>
@@ -53,17 +71,30 @@
 
 <script>
 import $Store from '../../store/index';
+import { VueEditor } from 'vue2-editor';
 export default {
   data() {
     return {
       title: 'Add Blog Post',
+      toggle: true,
       name: '',
       heading: '',
       message: '',
       isDisabled: true,
     };
   },
+  components: {
+    VueEditor,
+  },
   methods: {
+    handleToggle() {
+      const toggleValue = event.target.checked;
+      if (toggleValue) {
+        this.toggle = true;
+      } else {
+        this.toggle = false;
+      }
+    },
     handleBlogPost(name, heading, message) {
       this.name = name;
       this.heading = heading;

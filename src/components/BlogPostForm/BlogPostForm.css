@@ -1,0 +1,42 @@
+.text-editor {
+  background-color: var(--main-font-colour);
+  color: var(--main-bg-colour);
+}
+
+/* checkbox Styling */
+input[type='checkbox'] + label {
+  display: block;
+  margin: 0.2em;
+  cursor: pointer;
+  padding: 0.2em;
+}
+
+input[type='checkbox'] {
+  display: none;
+}
+
+input[type='checkbox'] + label:before {
+  content: '\2714';
+  border: 0.1em solid #000;
+  border-radius: 0.2em;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.2em;
+  padding: 0.1em 0.1em;
+  vertical-align: bottom;
+  color: transparent;
+  background-color: var(--main-font-colour);
+  transition: 0.2s;
+}
+
+input[type='checkbox'] + label:active:before {
+  transform: scale(0);
+}
+
+input[type='checkbox']:checked + label:before {
+  background-color: greenyellow;
+  border-color: greenyellow;
+  color: var(--main-font-colour);
+}
+
+/* checkbox Styling */
