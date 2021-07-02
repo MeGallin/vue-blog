@@ -1,52 +1,69 @@
 <template>
-  <div v-if="blogs !== '0 results'">
-    <div v-for="blog in blogs" :key="blog.id" class="item">
-      <h1 class="underline-dark">{{ blog.heading }}</h1>
-
-      <span v-html="blog.message"></span>
-      <div class="blog-footer-wrapper">
-        <p>{{ blog.posted }}</p>
-        <p>Post by {{ blog.name }}</p>
-      </div>
-      <div class="clap-wrapper">
-        <div>
-          <span
-            class="likes"
-            @click="
-              handleLikes(
-                blog.id,
-                blog.name,
-                blog.heading,
-                blog.message,
-                blog.likes
-              )
-            "
-          >
-            <i class="far fa-thumbs-up"></i>
-            <span class="text-small">{{ blog.likes }}</span>
-          </span>
+  <div class="blog-wrapper">
+    <div class="blog-box">
+      <div>
+        <h1 class="underline-light">{{ blogs[index].heading }}</h1>
+        <div v-html="blogs[index].message"></div>
+        <div class="blog-footer-wrapper">
+          <p>{{ blogs[index].posted }}</p>
+          <p>Post by {{ blogs[index].name }}</p>
         </div>
-        <div>
-          <span
-            class="dislikes"
-            @click="
-              handleDislikes(
-                blog.id,
-                blog.name,
-                blog.heading,
-                blog.message,
-                blog.dislikes
-              )
-            "
-            ><i class="far fa-thumbs-down"></i
-            ><span class="text-small">{{ blog.dislikes }}</span>
-          </span>
+        <div class="clap-wrapper">
+          <div>
+            <span
+              class="likes"
+              @click="
+                handleLikes(
+                  blogs[index].id,
+                  blogs[index].name,
+                  blogs[index].heading,
+                  blogs[index].message,
+                  blogs[index].likes
+                )
+              "
+            >
+              <i class="far fa-thumbs-up"></i>
+              <span class="text-small">{{ blogs[index].likes }}</span>
+            </span>
+          </div>
+          <div>
+            <span
+              class="dislikes"
+              @click="
+                handleDislikes(
+                  blogs[index].id,
+                  blogs[index].name,
+                  blogs[index].heading,
+                  blogs[index].message,
+                  blogs[index].dislikes
+                )
+              "
+              ><i class="far fa-thumbs-down"></i
+              ><span class="text-small">{{ blogs[index].dislikes }}</span>
+            </span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div v-else>
-    <p>No Post(s)</p>
+
+    <div class="blog-box-multi" v-if="blogs !== '0 results'">
+      <div
+        v-for="(blog, index) in blogs"
+        :key="blog.id"
+        class="item"
+        @click="handleShowBlog(index)"
+      >
+        <h1>
+          {{ blog.heading }}
+        </h1>
+        <p v-html="blog.message.slice(0, 36) + '...'"></p>
+        <p>{{ blog.name }}</p>
+      </div>
+    </div>
+
+    <div v-else>
+      <p>No Post(s)</p>
+    </div>
   </div>
 </template>
 
@@ -56,7 +73,9 @@ import { mapGetters } from 'vuex';
 
 export default {
   data() {
-    return {};
+    return {
+      index: 0,
+    };
   },
   computed: {
     ...mapGetters(['blogs', 'userData', 'isAuthenticated']),
@@ -84,6 +103,9 @@ export default {
         dislikes: parseInt(dislikes) + 1,
       };
       $Store.dispatch('addDisLike', disLikesData);
+    },
+    handleShowBlog(index) {
+      this.index = index;
     },
   },
 };

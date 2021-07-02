@@ -1,9 +1,31 @@
+.blog-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
+.blog-box {
+  margin-right: 1em;
+  width: 100%;
+  padding: 0.4rem;
+}
+.blog-box-multi {
+  padding: 0.2rem;
+}
+
 .item {
   padding: 0.2rem;
 }
+
 .item:nth-child(even) {
   background-color: var(--main-font-colour);
   color: var(--main-bg-colour);
+}
+.item:nth-child(even):hover {
+  cursor: pointer;
+  background-color: hsla(0, 0%, 50%, 0.3);
+}
+.item:nth-child(odd):hover {
+  cursor: pointer;
+  background-color: hsla(0, 0%, 50%, 0.4);
 }
 
 .blog-footer-wrapper {
