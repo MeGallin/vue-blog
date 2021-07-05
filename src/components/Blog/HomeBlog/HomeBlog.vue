@@ -2,15 +2,21 @@
   <div class="blog-wrapper">
     <div class="blog-box">
       <div>
-        <h1 class="underline-light">{{ blogs[index].heading }}</h1>
-        <div v-html="blogs[index].message"></div>
-        <div class="blog-footer-wrapper">
+        <h1 v-if="blogs[index] !== undefined" class="underline-light">
+          {{ blogs[index].heading }}
+        </h1>
+        <div
+          v-if="blogs[index] !== undefined"
+          v-html="blogs[index].message"
+        ></div>
+        <div v-if="blogs[index] !== undefined" class="blog-footer-wrapper">
           <p>{{ blogs[index].posted }}</p>
           <p>Post by {{ blogs[index].name }}</p>
         </div>
         <div class="clap-wrapper">
           <div>
             <span
+              v-if="blogs[index] !== undefined"
               class="likes"
               @click="
                 handleLikes(
@@ -28,6 +34,7 @@
           </div>
           <div>
             <span
+              v-if="blogs[index] !== undefined"
               class="dislikes"
               @click="
                 handleDislikes(
