@@ -2,51 +2,56 @@
   <div class="blog-wrapper">
     <div class="blog-box">
       <div>
-        <h1 v-if="blogs[index] !== undefined" class="underline-light">
-          {{ blogs[index].heading }}
+        <h1 v-if="filteredBlogs[index] !== undefined" class="underline-light">
+          {{ filteredBlogs[index].heading }}
         </h1>
         <div
-          v-if="blogs[index] !== undefined"
-          v-html="blogs[index].message"
+          v-if="filteredBlogs[index] !== undefined"
+          v-html="filteredBlogs[index].message"
         ></div>
-        <div v-if="blogs[index] !== undefined" class="blog-footer-wrapper">
-          <p>{{ blogs[index].posted }}</p>
-          <p>Post by {{ blogs[index].name }}</p>
+        <div
+          v-if="filteredBlogs[index] !== undefined"
+          class="blog-footer-wrapper"
+        >
+          <p>{{ filteredBlogs[index].posted }}</p>
+          <p>Post by {{ filteredBlogs[index].name }}</p>
         </div>
         <div class="clap-wrapper">
           <div>
             <span
-              v-if="blogs[index] !== undefined"
+              v-if="filteredBlogs[index] !== undefined"
               class="likes"
               @click="
                 handleLikes(
-                  blogs[index].id,
-                  blogs[index].name,
-                  blogs[index].heading,
-                  blogs[index].message,
-                  blogs[index].likes
+                  filteredBlogs[index].id,
+                  filteredBlogs[index].name,
+                  filteredBlogs[index].heading,
+                  filteredBlogs[index].message,
+                  filteredBlogs[index].likes
                 )
               "
             >
               <i class="far fa-thumbs-up"></i>
-              <span class="text-small">{{ blogs[index].likes }}</span>
+              <span class="text-small">{{ filteredBlogs[index].likes }}</span>
             </span>
           </div>
           <div>
             <span
-              v-if="blogs[index] !== undefined"
+              v-if="filteredBlogs[index] !== undefined"
               class="dislikes"
               @click="
                 handleDislikes(
-                  blogs[index].id,
-                  blogs[index].name,
-                  blogs[index].heading,
-                  blogs[index].message,
-                  blogs[index].dislikes
+                  filteredBlogs[index].id,
+                  filteredBlogs[index].name,
+                  filteredBlogs[index].heading,
+                  filteredBlogs[index].message,
+                  filteredBlogs[index].dislikes
                 )
               "
               ><i class="far fa-thumbs-down"></i
-              ><span class="text-small">{{ blogs[index].dislikes }}</span>
+              ><span class="text-small">{{
+                filteredBlogs[index].dislikes
+              }}</span>
             </span>
           </div>
         </div>
@@ -54,8 +59,14 @@
     </div>
 
     <div class="blog-box-multi" v-if="blogs !== '0 results'">
+      <div>
+        <label for="search"
+          >Search
+          <input type="text" name="search" id="search" v-model="search" />
+        </label>
+      </div>
       <div
-        v-for="(blog, index) in blogs"
+        v-for="(blog, index) in filteredBlogs"
         :key="blog.id"
         class="item"
         @click="handleShowBlog(index)"
@@ -82,10 +93,16 @@ export default {
   data() {
     return {
       index: 0,
+      search: '',
     };
   },
   computed: {
     ...mapGetters(['blogs', 'userData', 'isAuthenticated']),
+    filteredBlogs() {
+      return this.blogs.filter((blog) => {
+        return blog.heading.toLowerCase().match(this.search);
+      });
+    },
   },
   created() {
     $Store.dispatch('getBlogs');
