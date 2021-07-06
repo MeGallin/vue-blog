@@ -60,10 +60,12 @@
 
     <div class="blog-box-multi" v-if="blogs !== '0 results'">
       <div>
-        <label for="search"
-          >Search
-          <input type="text" name="search" id="search" v-model="search" />
-        </label>
+        <form>
+          <label for="search"
+            >Search
+            <input type="text" name="search" id="search" v-model="search" />
+          </label>
+        </form>
       </div>
       <div
         v-for="(blog, index) in filteredBlogs"
@@ -71,11 +73,13 @@
         class="item"
         @click="handleShowBlog(index)"
       >
-        <h1>
+        <h3 class="underline-dark">
           {{ blog.heading }}
-        </h1>
+        </h3>
         <p v-html="blog.message.slice(0, 36) + '...'"></p>
-        <p>{{ blog.name }}</p>
+        <div class="blog-box-multi-footer">
+          <span class="text-small">{{ blog.name }}</span>
+        </div>
       </div>
     </div>
 
