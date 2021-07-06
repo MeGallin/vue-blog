@@ -149,6 +149,7 @@ h3 {
   border-bottom: var(--main-bg-colour) 1px solid;
   margin-bottom: 0.4em;
 }
+
 /* General form styles */
 form {
   background-image: linear-gradient(
