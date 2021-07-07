@@ -4,7 +4,7 @@
 }
 .blog-box {
   margin-right: 1em;
-  width: 100%;
+  width: 80%;
   padding: 0.4rem;
 }
 .blog-box-multi {
@@ -65,4 +65,7 @@
 }
 .fa-thumbs-down:hover {
   color: crimson;
+}
+.search-input {
+  margin-bottom: 0;
 }

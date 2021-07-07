@@ -61,10 +61,28 @@
     <div class="blog-box-multi" v-if="blogs !== '0 results'">
       <div>
         <form>
-          <label for="search"
-            >Search
-            <input type="text" name="search" id="search" v-model="search" />
-          </label>
+          <div>
+            <label for="search"
+              >Search Title(s)
+              <input
+                type="text"
+                name="search"
+                id="search"
+                v-model="search"
+                class="search-input"
+                :class="this.search.length < 3 ? 'invalid' : 'entered'"
+              />
+            </label>
+          </div>
+          <div>
+            <button
+              type="button"
+              @click="handleClearSearch()"
+              :disabled="isDisabled"
+            >
+              Clear Search
+            </button>
+          </div>
         </form>
       </div>
       <div
@@ -74,8 +92,9 @@
         @click="handleShowBlog(index)"
       >
         <h3 class="underline-dark">
-          {{ blog.heading }}
+          <span v-html="matchName(blog.heading)"></span>
         </h3>
+
         <p v-html="blog.message.slice(0, 36) + '...'"></p>
         <div class="blog-box-multi-footer">
           <span class="text-small">{{ blog.name }}</span>
@@ -98,6 +117,7 @@ export default {
     return {
       index: 0,
       search: '',
+      isDisabled: true,
     };
   },
   computed: {
@@ -134,6 +154,31 @@ export default {
     },
     handleShowBlog(index) {
       this.index = index;
+    },
+    matchName(current) {
+      let reggie = new RegExp(this.search, 'ig');
+      let found = current.search(reggie) !== -1;
+      return !found
+        ? current
+        : current.replace(
+            reggie,
+            '<span style="color:greenYellow; background-color:rgba(51,51,51,1)" >' +
+              this.search +
+              '</span>'
+          );
+    },
+    handleClearSearch() {
+      this.search = '';
+    },
+  },
+  watch: {
+    search(val) {
+      this.search = val;
+      if (this.search.length != '') {
+        this.isDisabled = false;
+      } else {
+        this.isDisabled = true;
+      }
     },
   },
 };
