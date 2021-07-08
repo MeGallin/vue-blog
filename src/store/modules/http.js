@@ -1,6 +1,6 @@
 import axios from 'axios';
 import $router from '../../router/index';
-import { API_URL } from '../../__env_dev';
+import { API_URL } from '../../__env_prod';
 
 const state = {
   blogs: [],
@@ -123,7 +123,7 @@ const actions = {
   // Action for the contact form
   async postFormData(context, payload) {
     console.log(context);
-    const url = API_URL.postFormUrl;
+    const url = API_URL.postFormDataUrl;
     try {
       await axios.post(url, payload);
     } catch (error) {
