@@ -1,5 +1,10 @@
 footer {
-  background-color: blue;
+  background: var(--main-font-colour);
+  color: var(--main-bg-colour);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   position: sticky;
   bottom: 0;
+  min-height: 36px; /*This matches the header */
 }

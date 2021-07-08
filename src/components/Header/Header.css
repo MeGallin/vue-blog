@@ -1,7 +1,8 @@
 nav {
-  background-color: crimson;
+  background-color: var(--main-font-colour);
   display: flex;
   justify-content: space-between;
   position: sticky;
   top: 0;
+  padding: 0.2rem 0;
 }

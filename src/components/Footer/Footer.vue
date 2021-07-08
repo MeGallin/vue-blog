@@ -1,6 +1,9 @@
 <template>
   <footer>
-    <div>{{ title }}<date-time></date-time></div>
+    <div>
+      <router-link to="/contact">Contact Me</router-link>
+    </div>
+    <date-time></date-time>
   </footer>
 </template>
 

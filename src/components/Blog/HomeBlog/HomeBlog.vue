@@ -1,5 +1,52 @@
 <template>
   <div class="blog-wrapper">
+    <div class="blog-box-multi" v-if="blogs !== '0 results'">
+      <div>
+        <form>
+          <div>
+            <label for="search"
+              >Search Title(s)
+              <input
+                type="text"
+                name="search"
+                id="search"
+                v-model="search"
+                class="search-input"
+                :class="this.search.length < 3 ? 'invalid' : 'entered'"
+              />
+            </label>
+          </div>
+          <div>
+            <button
+              type="button"
+              @click="handleClearSearch()"
+              :disabled="isDisabled"
+            >
+              Clear Search
+            </button>
+          </div>
+        </form>
+      </div>
+      <div
+        v-for="(blog, index) in filteredBlogs"
+        :key="blog.id"
+        class="item"
+        @click="handleShowBlog(index)"
+      >
+        <h3 class="underline-dark">
+          <span v-html="matchName(blog.heading)"></span>
+        </h3>
+
+        <p v-html="blog.message.slice(0, 36) + '...'"></p>
+        <div class="blog-box-multi-footer">
+          <span class="text-small">{{ blog.name }}</span>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <p>No Post(s)</p>
+    </div>
+
     <div class="blog-box">
       <div>
         <h1 v-if="filteredBlogs[index] !== undefined" class="underline-light">
@@ -56,54 +103,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="blog-box-multi" v-if="blogs !== '0 results'">
-      <div>
-        <form>
-          <div>
-            <label for="search"
-              >Search Title(s)
-              <input
-                type="text"
-                name="search"
-                id="search"
-                v-model="search"
-                class="search-input"
-                :class="this.search.length < 3 ? 'invalid' : 'entered'"
-              />
-            </label>
-          </div>
-          <div>
-            <button
-              type="button"
-              @click="handleClearSearch()"
-              :disabled="isDisabled"
-            >
-              Clear Search
-            </button>
-          </div>
-        </form>
-      </div>
-      <div
-        v-for="(blog, index) in filteredBlogs"
-        :key="blog.id"
-        class="item"
-        @click="handleShowBlog(index)"
-      >
-        <h3 class="underline-dark">
-          <span v-html="matchName(blog.heading)"></span>
-        </h3>
-
-        <p v-html="blog.message.slice(0, 36) + '...'"></p>
-        <div class="blog-box-multi-footer">
-          <span class="text-small">{{ blog.name }}</span>
-        </div>
-      </div>
-    </div>
-
-    <div v-else>
-      <p>No Post(s)</p>
     </div>
   </div>
 </template>
