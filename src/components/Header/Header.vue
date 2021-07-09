@@ -6,6 +6,9 @@
       <span v-if="isAuthenticated">
         <router-link to="/admin">Admin</router-link> |
       </span>
+      <span v-if="isAuthenticated">
+        <router-link to="/register">Register</router-link> |
+      </span>
       <router-link to="/about">About</router-link>
     </div>
     <div v-if="!isAuthenticated">
