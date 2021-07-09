@@ -35,10 +35,12 @@ const actions = {
   },
   async userRegistration(context, regData) {
     const convertedData = JSON.stringify(regData);
-    const url = API_URL.getUserRegistrationUrl;
+    const url = API_URL.userRegistrationUrl;
     try {
       await axios.post(url, convertedData);
       context.commit('SET_REGISTRATION_DATA', regData);
+      state.isAuthenticated = false;
+      $router.replace({ name: 'Login' });
     } catch (error) {
       console.log(error);
     }
