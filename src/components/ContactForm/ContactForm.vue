@@ -86,7 +86,7 @@ export default {
         email: email,
         message: message,
       };
-      console.log(JSON.stringify(formData));
+
       $Store.dispatch('postFormData', JSON.stringify(formData));
 
       this.thankYouMessage = `Thank you ${this.name} for making contact. We will be in contact shortly.`;
