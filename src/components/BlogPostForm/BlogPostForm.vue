@@ -38,7 +38,6 @@
             name="toggle"
             id="toggle"
             v-model="toggle"
-            checked="true"
           />
           <label for="toggle">
             <span v-if="toggle">SHOW EDITOR</span>
@@ -76,7 +75,7 @@ export default {
   data() {
     return {
       title: 'Add Blog Post',
-      toggle: true,
+      toggle: false,
       name: '',
       heading: '',
       message: '',
