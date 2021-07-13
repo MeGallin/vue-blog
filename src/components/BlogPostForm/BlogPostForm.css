@@ -1,6 +1,7 @@
 .text-editor {
   background-color: var(--main-font-colour);
   color: var(--main-bg-colour);
+  border-radius: 4px;
 }
 
 /* checkbox Styling */

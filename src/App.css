@@ -218,6 +218,12 @@ form textarea.invalid {
   border-left: var(--secondary-bg-colour) 4px solid;
   min-height: 250px;
 }
+.text-editor.entered {
+  border-left: greenyellow 4px solid;
+}
+.text-editor.invalid {
+  border-left: var(--secondary-bg-colour) 4px solid;
+}
 
 /* Fieldset for all the forms */
 
