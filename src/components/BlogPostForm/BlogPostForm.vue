@@ -5,17 +5,24 @@
       <form
         id="blogPostForm"
         @submit.prevent
-        @submit="handleBlogPost(name, heading, message)"
+        @submit="
+          handleBlogPost(
+            userData[0].name + userData[0].surname,
+            heading,
+            message
+          )
+        "
       >
         <div>
           <label for="name"
             >Name
             <input
+              readonly
               type="text"
               name="name"
               id="name"
-              v-model="name"
-              :class="!this.name ? 'invalid' : 'entered'"
+              v-model="fullName"
+              class="entered"
             />
           </label>
         </div>
@@ -57,7 +64,11 @@
         </div>
         <div v-else>
           Blog
-          <vue-editor v-model="message" class="text-editor"></vue-editor>
+          <vue-editor
+            v-model="message"
+            class="text-editor"
+            :class="this.message.length < 10 ? 'invalid' : 'entered'"
+          ></vue-editor>
         </div>
 
         <div>
@@ -70,6 +81,7 @@
 
 <script>
 import $Store from '../../store/index';
+import { mapGetters } from 'vuex';
 import { VueEditor } from 'vue2-editor';
 export default {
   data() {
@@ -84,6 +96,12 @@ export default {
   },
   components: {
     VueEditor,
+  },
+  computed: {
+    ...mapGetters(['userData']),
+    fullName() {
+      return this.userData[0].name + ' ' + this.userData[0].surname;
+    },
   },
   methods: {
     handleToggle() {
@@ -111,17 +129,17 @@ export default {
     },
   },
   watch: {
-    name(val) {
-      this.name = val;
-      if (this.name.length != '' && this.heading.length != '') {
+    heading(val) {
+      this.heading = val;
+      if (this.heading.length != '' && this.message.length > 10) {
         this.isDisabled = false;
       } else {
         this.isDisabled = true;
       }
     },
-    heading(val) {
-      this.heading = val;
-      if (this.heading.length != '' && this.name.length != '') {
+    message(val) {
+      this.message = val;
+      if (this.message.length > 10 && this.heading.length != '') {
         this.isDisabled = false;
       } else {
         this.isDisabled = true;

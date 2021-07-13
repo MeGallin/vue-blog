@@ -6,11 +6,17 @@
         <p>{{ blog.message }}</p>
         <p>{{ blog.posted }}</p>
         <p>{{ blog.name }}</p>
-        <button @click="handleDeleteBlog(blog.id)">Delete Post</button>
+        <button @click="handleDeleteBlog(blog.id, blog.name, userData)">
+          Delete Post
+        </button>
 
-        <button v-if="!showUpdateForm" @click="showForm(blog.id)">
+        <button
+          v-if="!showUpdateForm"
+          @click="showForm(blog.id, blog.name, userData)"
+        >
           Edit Post
         </button>
+
         <hr />
         <div v-if="showUpdateForm && blog.id === showFormId">
           <fieldset class="fieldSet">
@@ -18,18 +24,25 @@
             <form
               @submit.prevent
               @submit="
-                handleUpdate(blog.id, blog.name, blog.heading, blog.message)
+                handleUpdate(
+                  blog.id,
+                  blog.name,
+                  blog.heading,
+                  blog.message,
+                  userData
+                )
               "
             >
               <div>
                 <label for="name"
                   >Name
                   <input
-                    id="blog.id"
+                    readonly
                     type="text"
                     name="name"
                     v-model="blog.name"
                     value="name"
+                    class="entered"
                   />
                 </label>
               </div>
@@ -41,6 +54,7 @@
                     name="heading"
                     v-model="blog.heading"
                     value="heading"
+                    :class="!blog.heading ? 'invalid' : 'entered'"
                   />
                 </label>
               </div>
@@ -51,12 +65,19 @@
                     name="message"
                     v-model="blog.message"
                     value="message"
+                    :class="blog.message.length < 10 ? 'invalid' : 'entered'"
                   />
                 </label>
               </div>
 
               <div>
-                <button type="submit">Update</button>
+                <button
+                  type="submit"
+                  :disabled="!blog.heading || blog.message.length < 10"
+                >
+                  Update
+                </button>
+
                 <button type="button" @click="handleCancel()">Cancel</button>
               </div>
             </form>
@@ -65,6 +86,20 @@
       </div>
     </div>
     <div v-else>{{ blogs }}</div>
+
+    <div v-if="invalidUserMessage">
+      <div class="mask">
+        <div class="invalidUserMessage">
+          <p>
+            <span class="wordSwap">{{ userData[0].name }}</span
+            >, you are not authorised to
+            <span class="wordSwap">{{ wordSwap }}</span> this blog. You can only
+            <span class="wordSwap">{{ wordSwap }}</span> your own blogs.
+          </p>
+          <button @click="handleInvalidUserMessage">ok</button>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -80,21 +115,39 @@ export default {
       message: '',
       showUpdateForm: false,
       showFormId: null,
+      invalidUserMessage: false,
+      wordSwap: '',
     };
   },
   computed: {
-    ...mapGetters(['blogs']),
+    ...mapGetters(['blogs', 'userData']),
   },
   created() {
     $Store.dispatch('getBlogs');
   },
   methods: {
-    handleDeleteBlog(id) {
-      $Store.dispatch('deleteBlog', id);
+    handleDeleteBlog(id, name, userData) {
+      const userFirstName = userData[0].name;
+      const userSurname = userData[0].surname;
+      const loggedInName = userFirstName + userSurname;
+      if (name === loggedInName) {
+        $Store.dispatch('deleteBlog', id);
+      } else {
+        this.invalidUserMessage = true;
+        this.wordSwap = 'DELETE';
+      }
     },
-    showForm(id) {
-      this.showUpdateForm = true;
-      this.showFormId = id;
+    showForm(id, name, userData) {
+      const userFirstName = userData[0].name;
+      const userSurname = userData[0].surname;
+      const loggedInName = userFirstName + userSurname;
+      if (name === loggedInName) {
+        this.showUpdateForm = true;
+        this.showFormId = id;
+      } else {
+        this.invalidUserMessage = true;
+        this.wordSwap = 'EDIT';
+      }
     },
     handleUpdate(id, name, heading, message) {
       const formData = {
@@ -109,6 +162,9 @@ export default {
     },
     handleCancel() {
       this.showUpdateForm = false;
+    },
+    handleInvalidUserMessage() {
+      this.invalidUserMessage = false;
     },
   },
 };
