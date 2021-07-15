@@ -6,13 +6,27 @@
         <p>{{ blog.message }}</p>
         <p>{{ blog.posted }}</p>
         <p>{{ blog.name }}</p>
-        <button @click="handleDeleteBlog(blog.id, blog.name, userData)">
+        <button
+          @click="handleDeleteBlog(blog.id, blog.name, userData)"
+          :class="
+            blog.name === userData[0].name + userData[0].surname
+              ? 'highLiteUserName'
+              : 'notHighLiteUserName'
+          "
+          title="Green button means you DELETE"
+        >
           Delete Post
         </button>
 
         <button
           v-if="!showUpdateForm"
           @click="showForm(blog.id, blog.name, userData)"
+          :class="
+            blog.name === userData[0].name + userData[0].surname
+              ? 'highLiteUserName'
+              : 'notHighLiteUserName'
+          "
+          title="Green button means you EDIT"
         >
           Edit Post
         </button>

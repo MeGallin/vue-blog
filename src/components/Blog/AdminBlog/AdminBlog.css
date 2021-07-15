@@ -37,3 +37,11 @@
   letter-spacing: 4px;
   padding: 0.16em;
 }
+.highLiteUserName {
+  background-color: greenyellow;
+  cursor: pointer;
+}
+.notHighLiteUserName {
+  background-color: crimson;
+  filter: blur(4px);
+}
