@@ -10,29 +10,53 @@
         <div>
           <label for="name"
             >Name
-            <input type="text" name="name" id="name" v-model="name" />
+            <input
+              type="text"
+              name="name"
+              id="name"
+              v-model="name"
+              :class="this.name.length <= 2 ? 'invalid' : 'entered'"
+            />
           </label>
         </div>
         <div>
           <label for="surname"
             >Surname
-            <input type="text" name="surname" id="surname" v-model="surname" />
+            <input
+              type="text"
+              name="surname"
+              id="surname"
+              v-model="surname"
+              :class="this.surname.length <= 2 ? 'invalid' : 'entered'"
+            />
           </label>
         </div>
         <div>
           <label for="email"
             >E-Mail
-            <input type="email" name="email" id="regEmail" v-model="email" />
+            <input
+              type="email"
+              name="email"
+              id="regEmail"
+              v-model="email"
+              :class="!this.email.includes('@') ? 'invalid' : 'entered'"
+            />
           </label>
         </div>
         <div>
           <label for="pwd"
             >Password
-            <input type="password" name="pwd" id="regPwd" v-model="pwd" />
+            <input
+              type="password"
+              name="pwd"
+              id="pwd"
+              v-model="pwd"
+              :class="this.pwd.length <= 6 ? 'invalid' : 'entered'"
+            />
           </label>
         </div>
         <div>
-          <button type="submit">Submit</button>
+          <button type="submit" :disabled="isDisabled">Submit</button>
         </div>
       </form>
     </fieldset>
@@ -49,6 +73,7 @@ export default {
       surname: '',
       email: '',
       pwd: '',
+      isDisabled: true,
     };
   },
   methods: {
@@ -64,8 +89,67 @@ export default {
         email: this.email,
         pwd: this.pwd,
       };
-      console.log('Component', regData);
+
       $Store.dispatch('userRegistration', regData);
+
+      this.name = '';
+      this.surname = '';
+      this.email = '';
+      this.pwd = '';
+    },
+  },
+  watch: {
+    name(val) {
+      this.name = val;
+      if (
+        this.name.length > 2 &&
+        this.surname.length > 2 &&
+        this.email.includes('@') &&
+        this.pwd.length >= 6
+      ) {
+        this.isDisabled = false;
+      } else {
+        this.isDisabled = true;
+      }
+    },
+    surname(val) {
+      this.surname = val;
+      if (
+        this.name.length > 2 &&
+        this.surname.length > 2 &&
+        this.email.includes('@') &&
+        this.pwd.length >= 6
+      ) {
+        this.isDisabled = false;
+      } else {
+        this.isDisabled = true;
+      }
+    },
+    email(val) {
+      this.email = val;
+      if (
+        this.name.length > 2 &&
+        this.surname.length > 2 &&
+        this.email.includes('@') &&
+        this.pwd.length >= 6
+      ) {
+        this.isDisabled = false;
+      } else {
+        this.isDisabled = true;
+      }
+    },
+    pwd(val) {
+      this.pwd = val;
+      if (
+        this.name.length > 2 &&
+        this.surname.length > 2 &&
+        this.email.includes('@') &&
+        this.pwd.length >= 6
+      ) {
+        this.isDisabled = false;
+      } else {
+        this.isDisabled = true;
+      }
     },
   },
 };

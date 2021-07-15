@@ -117,8 +117,8 @@ body {
   min-height: 100%;
 }
 section {
-  max-width: 1200px;
-  width: 90vw;
+  max-width: 1290px;
+  width: 99vw;
   margin: 0 auto;
   /* max-height: 90vh; */
   /* overflow-y: auto; */
@@ -141,10 +141,15 @@ h2,
 h3 {
   display: inline-block;
 }
-.underline {
+.underline-light {
   border-bottom: var(--main-font-colour) 1px solid;
   margin-bottom: 0.4em;
 }
+.underline-dark {
+  border-bottom: var(--main-bg-colour) 1px solid;
+  margin-bottom: 0.4em;
+}
+
 /* General form styles */
 form {
   background-image: linear-gradient(
@@ -203,7 +208,20 @@ form input[type='text'].invalid {
 form input[type='email'].invalid {
   border-left: var(--secondary-bg-colour) 4px solid;
 }
+form input[type='password'].entered {
+  border-left: greenyellow 4px solid;
+}
+form input[type='password'].invalid {
+  border-left: var(--secondary-bg-colour) 4px solid;
+}
 form textarea.invalid {
+  border-left: var(--secondary-bg-colour) 4px solid;
+  min-height: 250px;
+}
+.text-editor.entered {
+  border-left: greenyellow 4px solid;
+}
+.text-editor.invalid {
   border-left: var(--secondary-bg-colour) 4px solid;
 }
 
@@ -227,3 +245,8 @@ fieldset.fieldSet {
   background: var(--border-colour);
 }
 /* SCROLL-BAR CUSTOM STYLING */
+
+/* Home page blog view images */
+.img-fit {
+  max-height: 30%;
+}

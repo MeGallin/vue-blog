@@ -6,26 +6,33 @@
         <div>
           <label for="email"
             >E-mail
-            <input type="email" name="email" id="email" v-model="email" />
+            <input
+              type="email"
+              name="email"
+              id="email"
+              v-model="email"
+              :class="!this.email.includes('@') ? 'invalid' : 'entered'"
+            />
           </label>
         </div>
         <div>
           <label for="pwd"
             >Password
-            <input type="password" name="pwd" id="pwd" v-model="pwd" />
+            <input
+              type="password"
+              name="pwd"
+              id="pwd"
+              v-model="pwd"
+              :class="this.pwd.length <= 3 ? 'invalid' : 'entered'"
+            />
           </label>
         </div>
         <div>
-          <button type="submit" @click="counter()">Submit</button>
+          <button type="submit" :disabled="isDisabled">Submit</button>
         </div>
       </form>
     </fieldset>
 
-    <div v-if="this.count > 0">
-      <h3>Error</h3>
-      <p>Either your email or password is in-correct.</p>
-      <p>Please try again.</p>
-    </div>
     <div>
       <p>
         Register:
@@ -44,7 +51,7 @@ export default {
     return {
       email: '',
       pwd: '',
-      count: null,
+      isDisabled: true,
     };
   },
   computed: {
@@ -64,8 +71,23 @@ export default {
       this.email = '';
       this.pwd = '';
     },
-    counter() {
-      this.count += 1;
+  },
+  watch: {
+    email(val) {
+      this.email = val;
+      if (this.email.includes('@') && this.pwd.length >= 4) {
+        this.isDisabled = false;
+      } else {
+        this.isDisabled = true;
+      }
+    },
+    pwd(val) {
+      this.pwd = val;
+      if (this.email.includes('@') && this.pwd.length >= 4) {
+        this.isDisabled = false;
+      } else {
+        this.isDisabled = true;
+      }
     },
   },
 };
