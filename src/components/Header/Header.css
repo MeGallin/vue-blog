@@ -1,8 +1,10 @@
 nav {
+  border-bottom: 1px solid var(--main-bg-colour);
   background-color: var(--main-font-colour);
   display: flex;
   justify-content: space-between;
   position: sticky;
   top: 0;
-  padding: 0.2rem 0;
+  z-index: 100;
+  padding: 0.2rem 0.2em;
 }
