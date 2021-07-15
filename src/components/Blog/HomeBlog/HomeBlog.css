@@ -1,11 +1,9 @@
-.blog-wrapper {
-  display: flex;
-  justify-content: space-evenly;
-}
 .blog-box {
-  margin-right: 1em;
-  width: 80%;
+  border-top: 1px solid var(--main-bg-colour);
+
   padding: 0.4rem;
+  background-color: var(--main-font-colour);
+  color: var(--main-bg-colour);
 }
 .blog-box-multi {
   padding: 0.2rem;
@@ -21,7 +19,8 @@
 }
 .blog-box-multi form {
   padding: 0;
-  padding-bottom: 0.4em;
+  padding-bottom: 1em;
+  background-image: transparent;
 }
 
 .item {
@@ -72,4 +71,21 @@
 }
 .search-input {
   margin-bottom: 0;
+}
+
+/* Min-width */
+@media only screen and (max-width: 600px) {
+  .blog-wrapper {
+    border: 4px sold red;
+    flex-wrap: wrap;
+  }
+  .blog-box-multi {
+    width: 100%;
+    height: auto;
+    overflow-y: none;
+  }
+  .blog-box {
+    width: 100%;
+    margin: 0 auto;
+  }
 }
