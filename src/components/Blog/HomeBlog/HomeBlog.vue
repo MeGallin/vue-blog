@@ -64,9 +64,12 @@
           v-if="filteredBlogs[index] !== undefined"
           class="blog-footer-wrapper"
         >
-          <p>{{ filteredBlogs[index].posted }}</p>
+          <p>
+            {{ timeStamp(filteredBlogs[index].posted, 'YYYYMMDD, h:mm:ss a') }}
+          </p>
           <p>Post by {{ filteredBlogs[index].name }}</p>
         </div>
+
         <div class="clap-wrapper">
           <div>
             <span
@@ -114,6 +117,7 @@
 <script>
 import $Store from '../../../store/index';
 import { mapGetters } from 'vuex';
+import moment from 'moment';
 
 export default {
   data() {
@@ -137,6 +141,9 @@ export default {
     $Store.dispatch('getBlogs');
   },
   methods: {
+    timeStamp(date, format) {
+      return moment(date, format).fromNow();
+    },
     handleLikes(id, name, heading, message, likes) {
       const likesData = {
         id: id,
