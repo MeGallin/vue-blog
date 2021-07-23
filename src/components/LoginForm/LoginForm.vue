@@ -4,16 +4,12 @@
       <legend>login form</legend>
       <form id="loginForm" @submit.prevent @submit="handleLogin(email, pwd)">
         <div>
-          <label for="email"
-            >E-mail
-            <input
-              type="email"
-              name="email"
-              id="email"
-              v-model="email"
-              :class="!this.email.includes('@') ? 'invalid' : 'entered'"
-            />
-          </label>
+          <EmailInput
+            :label="label"
+            :value="value"
+            v-model="email"
+            onClear="onClear()"
+          ></EmailInput>
         </div>
         <div>
           <label for="pwd"
@@ -45,14 +41,20 @@
 <script>
 import $Store from '../../store/index';
 import { mapGetters } from 'vuex';
+import EmailInput from '@/components/Inputs/EmailInput';
 
 export default {
   data() {
     return {
+      label: 'Email',
+      value: '',
       email: '',
       pwd: '',
       isDisabled: true,
     };
+  },
+  components: {
+    EmailInput,
   },
   computed: {
     ...mapGetters(['isAuthenticated', 'userData']),
@@ -71,23 +73,17 @@ export default {
       this.email = '';
       this.pwd = '';
     },
-  },
-  watch: {
-    email(val) {
-      this.email = val;
-      if (this.email.includes('@') && this.pwd.length >= 4) {
+    handleRegValidation() {
+      if (this.pwd.length >= 4) {
         this.isDisabled = false;
       } else {
         this.isDisabled = true;
       }
     },
-    pwd(val) {
-      this.pwd = val;
-      if (this.email.includes('@') && this.pwd.length >= 4) {
-        this.isDisabled = false;
-      } else {
-        this.isDisabled = true;
-      }
+  },
+  watch: {
+    pwd() {
+      this.handleRegValidation();
     },
   },
 };
