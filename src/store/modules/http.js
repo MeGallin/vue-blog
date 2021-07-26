@@ -8,6 +8,7 @@ const state = {
   postLikeData: {},
   postDisLikeData: {},
   regData: [],
+  registeredSuccess: false,
   userData: {},
   blogId: null,
   isAuthenticated: false,
@@ -18,6 +19,7 @@ const getters = {
   postLikeData: (state) => state.postLikeData,
   postDisLikeData: (state) => state.postDisLikeData,
   regData: (state) => state.regData,
+  isRegisteredSuccess: (state) => state.registeredSuccess,
   userData: (state) => state.userData,
   blogId: (state) => state.blogId,
   isAuthenticated: (state) => state.isAuthenticated,
@@ -138,6 +140,10 @@ const mutations = {
     state.blogs = blogs;
   },
   SET_REGISTRATION_DATA(state, regData) {
+    state.registeredSuccess = true;
+    setTimeout(() => {
+      state.registeredSuccess = false;
+    }, 6000);
     state.regData = regData;
   },
   SET_POST_DATA(state, postBlogData) {
