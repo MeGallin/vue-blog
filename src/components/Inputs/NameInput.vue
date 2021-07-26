@@ -3,23 +3,22 @@
   <label>
     {{ label }}
     <input
-      type="email"
+      type="text"
       :name="name"
       @input="onInput"
       @change="onChange"
-      :class="!this.emailRegex.test(email) ? 'invalid' : 'entered'"
+      :class="!this.mailRegex.test(name) ? 'invalid' : 'entered'"
     />
   </label>
 </template>
 
 <script>
 export default {
-  name: 'Password',
+  name: 'Name',
   data() {
     return {
-      email: '',
-      emailRegex:
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/,
+      name: '',
+      nameRegex: /^(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{2,}$/,
     };
   },
   props: {

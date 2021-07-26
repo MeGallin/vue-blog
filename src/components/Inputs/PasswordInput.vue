@@ -3,23 +3,22 @@
   <label>
     {{ label }}
     <input
-      type="email"
+      type="password"
       :name="name"
       @input="onInput"
       @change="onChange"
-      :class="!this.emailRegex.test(email) ? 'invalid' : 'entered'"
+      :class="!this.pwdRegex.test(pwd) ? 'invalid' : 'entered'"
     />
   </label>
 </template>
 
 <script>
+import $Store from '../../store/index';
 export default {
-  name: 'Password',
   data() {
     return {
-      email: '',
-      emailRegex:
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/,
+      pwd: '',
+      pwdRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/,
     };
   },
   props: {
@@ -36,14 +35,21 @@ export default {
   },
   methods: {
     onInput(event) {
-      this.email = event.target.value.trim();
+      this.pwd = event.target.value.trim();
       // Can add validation here
-      this.$emit('input', this.email);
+
+      if (this.pwdRegex.test(this.pwd)) {
+        $Store.dispatch('pwsIsValid', true);
+      } else {
+        $Store.dispatch('pwsIsValid', false);
+      }
+
+      this.$emit('input', this.pwd);
     },
     onChange(event) {
-      this.email = event.target.value.trim();
+      this.pwd = event.target.value.trim();
       // Can add validation here
-      this.$emit('change', this.email);
+      this.$emit('change', this.pwd);
     },
   },
 };

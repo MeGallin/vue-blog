@@ -4,27 +4,14 @@
       <legend>login form</legend>
       <form id="loginForm" @submit.prevent @submit="handleLogin(email, pwd)">
         <div>
-          <EmailInput
-            :label="label"
-            :value="value"
-            v-model="email"
-            onClear="onClear()"
-          ></EmailInput>
+          <EmailInput :label="label[0]" v-model="email"></EmailInput>
         </div>
         <div>
-          <label for="pwd"
-            >Password
-            <input
-              type="password"
-              name="pwd"
-              id="pwd"
-              v-model="pwd"
-              :class="this.pwd.length <= 3 ? 'invalid' : 'entered'"
-            />
-          </label>
+          <PasswordInput :label="label[1]" v-model="pwd"></PasswordInput>
         </div>
+        {{ passwordIsValid }}
         <div>
-          <button type="submit" :disabled="isDisabled">Submit</button>
+          <button type="submit" :disabled="!passwordIsValid">Submit</button>
         </div>
       </form>
     </fieldset>
@@ -42,12 +29,13 @@
 import $Store from '../../store/index';
 import { mapGetters } from 'vuex';
 import EmailInput from '@/components/Inputs/EmailInput';
+import PasswordInput from '@/components/Inputs/PasswordInput';
 
 export default {
   data() {
     return {
-      label: 'Email',
-      value: '',
+      label: ['email', 'password'],
+
       email: '',
       pwd: '',
       isDisabled: true,
@@ -55,9 +43,10 @@ export default {
   },
   components: {
     EmailInput,
+    PasswordInput,
   },
   computed: {
-    ...mapGetters(['isAuthenticated', 'userData']),
+    ...mapGetters(['isAuthenticated', 'userData', 'passwordIsValid']),
   },
   methods: {
     handleLogin(email, pwd) {
@@ -70,20 +59,9 @@ export default {
       };
 
       $Store.dispatch('userLogin', loginData);
+      $Store.dispatch('pwsIsValid', false);
       this.email = '';
       this.pwd = '';
-    },
-    handleRegValidation() {
-      if (this.pwd.length >= 4) {
-        this.isDisabled = false;
-      } else {
-        this.isDisabled = true;
-      }
-    },
-  },
-  watch: {
-    pwd() {
-      this.handleRegValidation();
     },
   },
 };
