@@ -7,14 +7,14 @@
       :name="name"
       @input="onInput"
       @change="onChange"
-      :class="!this.mailRegex.test(name) ? 'invalid' : 'entered'"
+      :class="!this.nameRegex.test(name) ? 'invalid' : 'entered'"
     />
   </label>
 </template>
 
 <script>
+import $Store from '../../store/index';
 export default {
-  name: 'Name',
   data() {
     return {
       name: '',
@@ -28,21 +28,22 @@ export default {
     },
   },
 
-  computed: {
-    name() {
-      return this.label.toLowerCase();
-    },
-  },
+  computed: {},
   methods: {
     onInput(event) {
-      this.email = event.target.value.trim();
+      this.name = event.target.value.trim();
       // Can add validation here
-      this.$emit('input', this.email);
+      if (this.nameRegex.test(this.name)) {
+        $Store.dispatch('fNameIsValid', true);
+      } else {
+        $Store.dispatch('fNameIsValid', false);
+      }
+      this.$emit('input', this.name);
     },
     onChange(event) {
-      this.email = event.target.value.trim();
+      this.name = event.target.value.trim();
       // Can add validation here
-      this.$emit('change', this.email);
+      this.$emit('change', this.name);
     },
   },
 };

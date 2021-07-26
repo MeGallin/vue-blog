@@ -4,21 +4,21 @@
     {{ label }}
     <input
       type="text"
-      :name="name"
+      :surname="surname"
       @input="onInput"
       @change="onChange"
-      :class="!this.mailRegex.test(name) ? 'invalid' : 'entered'"
+      :class="!this.surnameRegex.test(surname) ? 'invalid' : 'entered'"
     />
   </label>
 </template>
 
 <script>
+import $Store from '../../store/index';
 export default {
-  name: 'Surname',
   data() {
     return {
-      name: '',
-      nameRegex: /^(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{2,}$/,
+      surname: '',
+      surnameRegex: /^(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{2,}$/,
     };
   },
   props: {
@@ -28,21 +28,22 @@ export default {
     },
   },
 
-  computed: {
-    name() {
-      return this.label.toLowerCase();
-    },
-  },
+  computed: {},
   methods: {
     onInput(event) {
-      this.email = event.target.value.trim();
+      this.surname = event.target.value.trim();
       // Can add validation here
-      this.$emit('input', this.email);
+      if (this.surnameRegex.test(this.surname)) {
+        $Store.dispatch('sNameIsValid', true);
+      } else {
+        $Store.dispatch('sNameIsValid', false);
+      }
+      this.$emit('input', this.surname);
     },
     onChange(event) {
-      this.email = event.target.value.trim();
+      this.surname = event.target.value.trim();
       // Can add validation here
-      this.$emit('change', this.email);
+      this.$emit('change', this.surname);
     },
   },
 };
