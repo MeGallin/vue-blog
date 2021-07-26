@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div v-if="isRegisteredSuccess">
+      <p>You have succesfully been registered. Please login.</p>
+    </div>
+
     <fieldset class="fieldSet">
       <legend>login form</legend>
       <form id="loginForm" @submit.prevent @submit="handleLogin(email, pwd)">
@@ -51,6 +55,7 @@ export default {
       'userData',
       'validPassword',
       'validEmail',
+      'isRegisteredSuccess',
     ]),
   },
   methods: {
