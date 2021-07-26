@@ -9,9 +9,10 @@
         <div>
           <PasswordInput :label="label[1]" v-model="pwd"></PasswordInput>
         </div>
-        {{ passwordIsValid }}
         <div>
-          <button type="submit" :disabled="!passwordIsValid">Submit</button>
+          <button type="submit" :disabled="!validPassword || !validEmail">
+            Submit
+          </button>
         </div>
       </form>
     </fieldset>
@@ -35,7 +36,6 @@ export default {
   data() {
     return {
       label: ['email', 'password'],
-
       email: '',
       pwd: '',
       isDisabled: true,
@@ -46,7 +46,12 @@ export default {
     PasswordInput,
   },
   computed: {
-    ...mapGetters(['isAuthenticated', 'userData', 'passwordIsValid']),
+    ...mapGetters([
+      'isAuthenticated',
+      'userData',
+      'validPassword',
+      'validEmail',
+    ]),
   },
   methods: {
     handleLogin(email, pwd) {
@@ -59,6 +64,7 @@ export default {
       };
 
       $Store.dispatch('userLogin', loginData);
+      $Store.dispatch('mailIsValid', false);
       $Store.dispatch('pwsIsValid', false);
       this.email = '';
       this.pwd = '';

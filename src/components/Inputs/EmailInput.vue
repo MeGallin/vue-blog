@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import $Store from '../../store/index';
 export default {
   name: 'Password',
   data() {
@@ -38,6 +39,11 @@ export default {
     onInput(event) {
       this.email = event.target.value.trim();
       // Can add validation here
+      if (this.emailRegex.test(this.email)) {
+        $Store.dispatch('mailIsValid', true);
+      } else {
+        $Store.dispatch('mailIsValid', false);
+      }
       this.$emit('input', this.email);
     },
     onChange(event) {
