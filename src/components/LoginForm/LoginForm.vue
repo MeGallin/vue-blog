@@ -5,6 +5,12 @@
       <p class="successMessage">Please login.</p>
     </div>
 
+    <div v-if="userLoginFail">
+      <p class="failedLoginMessage">
+        Either your email or password is incorrect. Please try again.
+      </p>
+    </div>
+
     <fieldset class="fieldSet">
       <legend>login form</legend>
       <form id="loginForm" @submit.prevent @submit="handleLogin(email, pwd)">
@@ -15,7 +21,10 @@
           <PasswordInput :label="label[1]" v-model="pwd"></PasswordInput>
         </div>
         <div>
-          <button type="submit" :disabled="!validPassword || !validEmail">
+          <button
+            type="submit"
+            :disabled="(!validPassword || !validEmail) && !userLoginFail"
+          >
             Submit
           </button>
         </div>
@@ -53,6 +62,7 @@ export default {
     ...mapGetters([
       'isAuthenticated',
       'userData',
+      'userLoginFail',
       'validPassword',
       'validEmail',
       'isRegisteredSuccess',
@@ -69,10 +79,11 @@ export default {
       };
 
       $Store.dispatch('userLogin', loginData);
-      $Store.dispatch('mailIsValid', false);
-      $Store.dispatch('pwsIsValid', false);
-      this.email = '';
-      this.pwd = '';
+      // $Store.dispatch('mailIsValid', false);
+      // $Store.dispatch('pwsIsValid', false);
+      // WE dont clear the inputs here to preserve then in case of an error or duplicate email
+      // this.email = '';
+      // this.pwd = '';
     },
   },
 };

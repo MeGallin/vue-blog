@@ -6,7 +6,6 @@
       type="password"
       :name="pwd"
       @input="onInput"
-      @change="onChange"
       :class="!this.pwdRegex.test(pwd) ? 'invalid' : 'entered'"
     />
   </label>
@@ -45,11 +44,6 @@ export default {
       }
 
       this.$emit('input', this.pwd);
-    },
-    onChange(event) {
-      this.pwd = event.target.value.trim();
-      // Can add validation here
-      this.$emit('change', this.pwd);
     },
   },
 };

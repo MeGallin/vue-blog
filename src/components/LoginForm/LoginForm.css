@@ -2,3 +2,8 @@
   color: greenyellow;
   padding: 0.2em;
 }
+.failedLoginMessage {
+  color: crimson;
+  padding: 0.2em;
+  font-weight: bold;
+}
