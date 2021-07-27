@@ -103,6 +103,16 @@ select {
   }
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-decoration: underline;
+  padding-bottom: 2px;
+}
+
 /* General global stye settings */
 
 body {
@@ -118,10 +128,8 @@ body {
 }
 section {
   max-width: 1290px;
-  width: 99vw;
+  width: 100%;
   margin: 0 auto;
-  /* max-height: 90vh; */
-  /* overflow-y: auto; */
 }
 
 footer {
