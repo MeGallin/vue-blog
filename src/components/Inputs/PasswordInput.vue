@@ -4,7 +4,7 @@
     {{ label }}
     <input
       type="password"
-      :name="name"
+      :name="pwd"
       @input="onInput"
       @change="onChange"
       :class="!this.pwdRegex.test(pwd) ? 'invalid' : 'entered'"
