@@ -1,5 +1,9 @@
 <template>
   <div>
+    <p class="failedRegistrationMessage">
+      {{ emailExists }}
+    </p>
+
     <fieldset class="fieldSet">
       <legend>{{ title }}</legend>
       <form
@@ -51,7 +55,6 @@ export default {
       surname: '',
       email: '',
       pwd: '',
-      isDisabled: true,
     };
   },
   components: {
@@ -61,7 +64,13 @@ export default {
     PasswordInput,
   },
   computed: {
-    ...mapGetters(['validPassword', 'validEmail', 'validName', 'validSurname']),
+    ...mapGetters([
+      'validPassword',
+      'validEmail',
+      'validName',
+      'validSurname',
+      'emailExists',
+    ]),
   },
   methods: {
     handleRegistration(name, surname, email, pwd) {
@@ -78,12 +87,11 @@ export default {
       };
 
       $Store.dispatch('userRegistration', regData);
-      $Store.dispatch('pwsIsValid', false);
-
-      this.name = '';
-      this.surname = '';
-      this.email = '';
-      this.pwd = '';
+      // WE dont clear the inputs here to preserve then in case of an error or duplicate email
+      // this.name = '';
+      // this.surname = '';
+      // this.email = '';
+      // this.pwd = '';
     },
   },
 };

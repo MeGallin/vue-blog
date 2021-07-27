@@ -8,6 +8,7 @@ const state = {
   postLikeData: {},
   postDisLikeData: {},
   regData: [],
+  emailExists: '',
   registeredSuccess: false,
   userData: {},
   blogId: null,
@@ -19,6 +20,7 @@ const getters = {
   postLikeData: (state) => state.postLikeData,
   postDisLikeData: (state) => state.postDisLikeData,
   regData: (state) => state.regData,
+  emailExists: (state) => state.emailExists,
   isRegisteredSuccess: (state) => state.registeredSuccess,
   userData: (state) => state.userData,
   blogId: (state) => state.blogId,
@@ -39,10 +41,18 @@ const actions = {
     const convertedData = JSON.stringify(regData);
     const url = API_URL.userRegistrationUrl;
     try {
-      await axios.post(url, convertedData);
-      context.commit('SET_REGISTRATION_DATA', regData);
-      state.isAuthenticated = false;
-      $router.replace({ name: 'Login' });
+      const res = await axios.post(url, convertedData);
+      if (res.data.includes('email already exists') || !convertedData) {
+        context.commit(
+          'SET_EXISTING_EMAIL',
+          'Sorry that email already exits. Try with another email account.'
+        );
+      } else {
+        context.commit('SET_REGISTRATION_DATA', regData);
+        context.commit('SET_EXISTING_EMAIL', '');
+        state.isAuthenticated = false;
+        $router.replace({ name: 'Login' });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -86,7 +96,6 @@ const actions = {
 
     try {
       const res = await axios.post(url, userData);
-
       res.data.filter((email) => {
         if (email.email === userData.email) {
           context.commit('SET_IS_AUTHENTICATED', true);
@@ -145,6 +154,9 @@ const mutations = {
       state.registeredSuccess = false;
     }, 6000);
     state.regData = regData;
+  },
+  SET_EXISTING_EMAIL(state, payload) {
+    state.emailExists = payload;
   },
   SET_POST_DATA(state, postBlogData) {
     state.postBlogData = postBlogData;

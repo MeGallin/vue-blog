@@ -1,7 +1,8 @@
 <template>
   <div>
     <div v-if="isRegisteredSuccess">
-      <p>You have succesfully been registered. Please login.</p>
+      <p class="successMessage">You have succesfully been registered.</p>
+      <p class="successMessage">Please login.</p>
     </div>
 
     <fieldset class="fieldSet">
@@ -23,7 +24,7 @@
 
     <div>
       <p>
-        Register:
+        Want to Register:
         <router-link to="/contact">Countact Us</router-link>
       </p>
     </div>
@@ -42,7 +43,6 @@ export default {
       label: ['email', 'password'],
       email: '',
       pwd: '',
-      isDisabled: true,
     };
   },
   components: {

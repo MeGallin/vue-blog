@@ -1,1 +1,4 @@
-
+.successMessage {
+  color: greenyellow;
+  padding: 0.2em;
+}

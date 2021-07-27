@@ -4,7 +4,7 @@
     {{ label }}
     <input
       type="email"
-      :name="name"
+      :name="email"
       @input="onInput"
       @change="onChange"
       :class="!this.emailRegex.test(email) ? 'invalid' : 'entered'"
@@ -15,7 +15,6 @@
 <script>
 import $Store from '../../store/index';
 export default {
-  name: 'Password',
   data() {
     return {
       email: '',
