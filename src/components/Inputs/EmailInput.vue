@@ -6,7 +6,6 @@
       type="email"
       :name="email"
       @input="onInput"
-      @change="onChange"
       :class="!this.emailRegex.test(email) ? 'invalid' : 'entered'"
     />
   </label>
@@ -44,11 +43,6 @@ export default {
         $Store.dispatch('mailIsValid', false);
       }
       this.$emit('input', this.email);
-    },
-    onChange(event) {
-      this.email = event.target.value.trim();
-      // Can add validation here
-      this.$emit('change', this.email);
     },
   },
 };

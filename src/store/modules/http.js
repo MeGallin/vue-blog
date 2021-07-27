@@ -11,6 +11,7 @@ const state = {
   emailExists: '',
   registeredSuccess: false,
   userData: {},
+  userLoginFail: false,
   blogId: null,
   isAuthenticated: false,
 };
@@ -20,6 +21,7 @@ const getters = {
   postLikeData: (state) => state.postLikeData,
   postDisLikeData: (state) => state.postDisLikeData,
   regData: (state) => state.regData,
+  userLoginFail: (state) => state.userLoginFail,
   emailExists: (state) => state.emailExists,
   isRegisteredSuccess: (state) => state.registeredSuccess,
   userData: (state) => state.userData,
@@ -96,6 +98,7 @@ const actions = {
 
     try {
       const res = await axios.post(url, userData);
+
       res.data.filter((email) => {
         if (email.email === userData.email) {
           context.commit('SET_IS_AUTHENTICATED', true);
@@ -105,6 +108,11 @@ const actions = {
           context.commit('SET_IS_AUTHENTICATED', false);
         }
       });
+      if (res.data.length === 0) {
+        context.commit('SET_USER_LOGIN_FAIL', true);
+      } else {
+        context.commit('SET_USER_LOGIN_FAIL', false);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -169,6 +177,9 @@ const mutations = {
   },
   SET_USER_DATA(state, userData) {
     state.userData = userData;
+  },
+  SET_USER_LOGIN_FAIL(state, payload) {
+    state.userLoginFail = payload;
   },
   SET_DELETE_BLOG(state, id) {
     state.blogId = id;

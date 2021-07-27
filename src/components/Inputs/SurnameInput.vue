@@ -6,7 +6,6 @@
       type="text"
       :surname="surname"
       @input="onInput"
-      @change="onChange"
       :class="!this.surnameRegex.test(surname) ? 'invalid' : 'entered'"
     />
   </label>
@@ -39,11 +38,6 @@ export default {
         $Store.dispatch('sNameIsValid', false);
       }
       this.$emit('input', this.surname);
-    },
-    onChange(event) {
-      this.surname = event.target.value.trim();
-      // Can add validation here
-      this.$emit('change', this.surname);
     },
   },
 };
