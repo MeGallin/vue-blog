@@ -8,7 +8,10 @@ const state = {
   postLikeData: {},
   postDisLikeData: {},
   regData: [],
+  emailExists: '',
+  registeredSuccess: false,
   userData: {},
+  userLoginFail: false,
   blogId: null,
   isAuthenticated: false,
 };
@@ -18,6 +21,9 @@ const getters = {
   postLikeData: (state) => state.postLikeData,
   postDisLikeData: (state) => state.postDisLikeData,
   regData: (state) => state.regData,
+  userLoginFail: (state) => state.userLoginFail,
+  emailExists: (state) => state.emailExists,
+  isRegisteredSuccess: (state) => state.registeredSuccess,
   userData: (state) => state.userData,
   blogId: (state) => state.blogId,
   isAuthenticated: (state) => state.isAuthenticated,
@@ -37,10 +43,18 @@ const actions = {
     const convertedData = JSON.stringify(regData);
     const url = API_URL.userRegistrationUrl;
     try {
-      await axios.post(url, convertedData);
-      context.commit('SET_REGISTRATION_DATA', regData);
-      state.isAuthenticated = false;
-      $router.replace({ name: 'Login' });
+      const res = await axios.post(url, convertedData);
+      if (res.data.includes('email already exists') || !convertedData) {
+        context.commit(
+          'SET_EXISTING_EMAIL',
+          'Sorry that email already exits. Try with another email account.'
+        );
+      } else {
+        context.commit('SET_REGISTRATION_DATA', regData);
+        context.commit('SET_EXISTING_EMAIL', '');
+        state.isAuthenticated = false;
+        $router.replace({ name: 'Login' });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -94,6 +108,11 @@ const actions = {
           context.commit('SET_IS_AUTHENTICATED', false);
         }
       });
+      if (res.data.length === 0) {
+        context.commit('SET_USER_LOGIN_FAIL', true);
+      } else {
+        context.commit('SET_USER_LOGIN_FAIL', false);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -138,7 +157,14 @@ const mutations = {
     state.blogs = blogs;
   },
   SET_REGISTRATION_DATA(state, regData) {
+    state.registeredSuccess = true;
+    setTimeout(() => {
+      state.registeredSuccess = false;
+    }, 6000);
     state.regData = regData;
+  },
+  SET_EXISTING_EMAIL(state, payload) {
+    state.emailExists = payload;
   },
   SET_POST_DATA(state, postBlogData) {
     state.postBlogData = postBlogData;
@@ -151,6 +177,9 @@ const mutations = {
   },
   SET_USER_DATA(state, userData) {
     state.userData = userData;
+  },
+  SET_USER_LOGIN_FAIL(state, payload) {
+    state.userLoginFail = payload;
   },
   SET_DELETE_BLOG(state, id) {
     state.blogId = id;
