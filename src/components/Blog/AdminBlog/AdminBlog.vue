@@ -6,10 +6,12 @@
         <p>{{ blog.message }}</p>
         <p>{{ blog.posted }}</p>
         <p>{{ blog.name }}</p>
+
         <button
           @click="handleDeleteBlog(blog.id, blog.name, userData)"
           :class="
-            blog.name === userData[0].name + userData[0].surname
+            blog.name === userData[0].name + userData[0].surname ||
+            userData[0].email === 'admin@mail.com'
               ? 'highLiteUserName'
               : 'notHighLiteUserName'
           "
@@ -17,12 +19,12 @@
         >
           Delete Post
         </button>
-
         <button
           v-if="!showUpdateForm"
           @click="showForm(blog.id, blog.name, userData)"
           :class="
-            blog.name === userData[0].name + userData[0].surname
+            blog.name === userData[0].name + userData[0].surname ||
+            userData[0].email === 'admin@mail.com'
               ? 'highLiteUserName'
               : 'notHighLiteUserName'
           "
@@ -144,7 +146,7 @@ export default {
       const userFirstName = userData[0].name;
       const userSurname = userData[0].surname;
       const loggedInName = userFirstName + userSurname;
-      if (name === loggedInName) {
+      if (name === loggedInName || userData[0].email === 'admin@mail.com') {
         $Store.dispatch('deleteBlog', id);
       } else {
         this.invalidUserMessage = true;
@@ -155,7 +157,7 @@ export default {
       const userFirstName = userData[0].name;
       const userSurname = userData[0].surname;
       const loggedInName = userFirstName + userSurname;
-      if (name === loggedInName) {
+      if (name === loggedInName || userData[0].email === 'admin@mail.com') {
         this.showUpdateForm = true;
         this.showFormId = id;
       } else {
