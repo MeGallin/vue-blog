@@ -72,6 +72,16 @@
 .search-input {
   margin-bottom: 0;
 }
+.headingWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.adminMessage {
+  font-size: 0.6rem;
+  color: var(--secondary-bg-colour);
+  text-transform: uppercase;
+  font-weight: bold;
+}
 
 /* Min-width */
 @media only screen and (max-width: 600px) {
