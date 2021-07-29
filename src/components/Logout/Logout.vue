@@ -1,6 +1,9 @@
 <template>
   <div v-if="isAuthenticated">
-    <button type="button" @click="handleLogout()">{{ title }}</button>
+    <button type="button" @click="handleLogout()">
+      {{ title }}
+    </button>
+    <div class="userDetails">User: {{ userData[0].name }}</div>
   </div>
 </template>
 
@@ -14,7 +17,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated']),
+    ...mapGetters(['isAuthenticated', 'userData']),
   },
   methods: {
     handleLogout() {

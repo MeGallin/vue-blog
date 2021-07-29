@@ -6,10 +6,12 @@
         <p>{{ blog.message }}</p>
         <p>{{ blog.posted }}</p>
         <p>{{ blog.name }}</p>
+
         <button
           @click="handleDeleteBlog(blog.id, blog.name, userData)"
           :class="
-            blog.name === userData[0].name + userData[0].surname
+            blog.name === userData[0].name + userData[0].surname ||
+            userData[0].email === 'admin@mail.com'
               ? 'highLiteUserName'
               : 'notHighLiteUserName'
           "
@@ -17,12 +19,12 @@
         >
           Delete Post
         </button>
-
         <button
           v-if="!showUpdateForm"
           @click="showForm(blog.id, blog.name, userData)"
           :class="
-            blog.name === userData[0].name + userData[0].surname
+            blog.name === userData[0].name + userData[0].surname ||
+            userData[0].email === 'admin@mail.com'
               ? 'highLiteUserName'
               : 'notHighLiteUserName'
           "
@@ -43,7 +45,7 @@
                   blog.name,
                   blog.heading,
                   blog.message,
-                  userData
+                  blog.admin
                 )
               "
             >
@@ -69,6 +71,20 @@
                     v-model="blog.heading"
                     value="heading"
                     :class="!blog.heading ? 'invalid' : 'entered'"
+                  />
+                </label>
+              </div>
+              <div>
+                <label for="admin"
+                  >Admin
+                  <input
+                    :readonly="readOnly"
+                    type="number"
+                    max="1"
+                    min="0"
+                    name="admin"
+                    v-model="blog.admin"
+                    :class="!blog.admin ? 'invalid' : 'entered'"
                   />
                 </label>
               </div>
@@ -131,6 +147,8 @@ export default {
       showFormId: null,
       invalidUserMessage: false,
       wordSwap: '',
+      readOnly: true,
+      adminValue: '1',
     };
   },
   computed: {
@@ -144,7 +162,7 @@ export default {
       const userFirstName = userData[0].name;
       const userSurname = userData[0].surname;
       const loggedInName = userFirstName + userSurname;
-      if (name === loggedInName) {
+      if (name === loggedInName || userData[0].email === 'admin@mail.com') {
         $Store.dispatch('deleteBlog', id);
       } else {
         this.invalidUserMessage = true;
@@ -155,21 +173,33 @@ export default {
       const userFirstName = userData[0].name;
       const userSurname = userData[0].surname;
       const loggedInName = userFirstName + userSurname;
-      if (name === loggedInName) {
+      if (name === loggedInName || userData[0].email === 'admin@mail.com') {
         this.showUpdateForm = true;
         this.showFormId = id;
       } else {
         this.invalidUserMessage = true;
         this.wordSwap = 'EDIT';
       }
+
+      if (userData[0].email === 'admin@mail.com') {
+        this.readOnly = false;
+      } else {
+        this.readOnly = true;
+      }
     },
-    handleUpdate(id, name, heading, message) {
+    handleUpdate(id, name, heading, message, admin) {
       const formData = {
         id,
         name,
         heading,
         message,
+        admin,
       };
+
+      if (this.userData[0].email === 'admin@mail.com') {
+        $Store.dispatch('updateBlog', formData);
+        this.showUpdateForm = false;
+      }
 
       $Store.dispatch('updateBlog', formData);
       this.showUpdateForm = false;
