@@ -45,7 +45,7 @@
                   blog.name,
                   blog.heading,
                   blog.message,
-                  userData
+                  blog.admin
                 )
               "
             >
@@ -71,6 +71,20 @@
                     v-model="blog.heading"
                     value="heading"
                     :class="!blog.heading ? 'invalid' : 'entered'"
+                  />
+                </label>
+              </div>
+              <div>
+                <label for="admin"
+                  >Admin
+                  <input
+                    :readonly="readOnly"
+                    type="number"
+                    max="1"
+                    min="0"
+                    name="admin"
+                    v-model="blog.admin"
+                    :class="!blog.admin ? 'invalid' : 'entered'"
                   />
                 </label>
               </div>
@@ -133,6 +147,8 @@ export default {
       showFormId: null,
       invalidUserMessage: false,
       wordSwap: '',
+      readOnly: true,
+      adminValue: '1',
     };
   },
   computed: {
@@ -164,14 +180,26 @@ export default {
         this.invalidUserMessage = true;
         this.wordSwap = 'EDIT';
       }
+
+      if (userData[0].email === 'admin@mail.com') {
+        this.readOnly = false;
+      } else {
+        this.readOnly = true;
+      }
     },
-    handleUpdate(id, name, heading, message) {
+    handleUpdate(id, name, heading, message, admin) {
       const formData = {
         id,
         name,
         heading,
         message,
+        admin,
       };
+
+      if (this.userData[0].email === 'admin@mail.com') {
+        $Store.dispatch('updateBlog', formData);
+        this.showUpdateForm = false;
+      }
 
       $Store.dispatch('updateBlog', formData);
       this.showUpdateForm = false;

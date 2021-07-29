@@ -1,0 +1,6 @@
+.userDetails {
+  color: var(--secondary-bg-colour);
+  font-weight: bold;
+
+  font-size: 0.6rem;
+}
