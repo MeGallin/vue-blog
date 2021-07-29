@@ -55,6 +55,7 @@ body {
   line-height: 1.5;
   font-size: 16px;
   margin: 0;
+  padding: 0.1em;
 }
 body p {
   font-size: 14px;
@@ -224,6 +225,9 @@ form input[type='password'].invalid {
 }
 form textarea.invalid {
   border-left: var(--secondary-bg-colour) 4px solid;
+  min-height: 250px;
+}
+form textarea {
   min-height: 250px;
 }
 .text-editor.entered {
