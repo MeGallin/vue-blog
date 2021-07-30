@@ -87,7 +87,7 @@ export default {
       };
 
       $Store.dispatch('userRegistration', regData);
-      $Store.dispatch('userRegistrationEmail', regData);
+
       // WE dont clear the inputs here to preserve then in case of an error or duplicate email
       // this.name = '';
       // this.surname = '';
