@@ -3,6 +3,8 @@ export const API_URL = {
     'http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/getBlog.php',
   userRegistrationUrl:
     'http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/register.php',
+  userRegistrationEmailUrl:
+    'http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/registrationEmail.php',
   postBlogUrl:
     'http://localhost/WebSitesDesigns/vueJs/vue-blog/src/assets/api/addBlog.php',
   postLikesUrl:
