@@ -1,6 +1,8 @@
 export const API_URL = {
   getBlogsUrl: 'https://vueBlog.livenotice.co.uk/api/getBlog.php',
   userRegistrationUrl: 'https://vueBlog.livenotice.co.uk/api/register.php',
+  userRegistrationEmailUrl:
+    'https://vueBlog.livenotice.co.uk/api/registrationEmail.php',
   postBlogUrl: 'https://vueBlog.livenotice.co.uk/api/addBlog.php',
   postLikesUrl: 'https://vueBlog.livenotice.co.uk/api/addLike.php',
   postDisLikesUrl: 'https://vueBlog.livenotice.co.uk/api/addDisLikes.php',
