@@ -72,10 +72,7 @@
 .search-input {
   margin-bottom: 0;
 }
-.headingWrapper {
-  display: flex;
-  justify-content: space-between;
-}
+
 .adminMessage {
   font-size: 0.6rem;
   color: var(--secondary-bg-colour);
@@ -97,5 +94,11 @@
   .blog-box {
     width: 100%;
     margin: 0 auto;
+  }
+  input,
+  button,
+  textarea,
+  select {
+    width: 100%;
   }
 }
