@@ -54,6 +54,7 @@ const actions = {
       } else {
         context.commit('SET_REGISTRATION_DATA', regData);
         context.commit('SET_EXISTING_EMAIL', '');
+        context.dispatch('userRegistrationEmail', regData);
         state.isAuthenticated = false;
         $router.replace({ name: 'Login' });
       }
@@ -62,10 +63,9 @@ const actions = {
     }
   },
   async userRegistrationEmail(context, payload) {
-    const convertedData = JSON.stringify(payload);
     const url = API_URL.userRegistrationEmailUrl;
     try {
-      await axios.post(url, convertedData);
+      await axios.post(url, payload);
       context.commit('SET_REGISTRATION_EMAIL', payload);
     } catch (error) {
       console.log(error);
@@ -155,8 +155,7 @@ const actions = {
   },
   // Action for the contact form
   async postFormData(context, payload) {
-    console.log(context);
-    const url = API_URL.postFormDataUrl;
+    const url = API_URL.postFormUrl;
     try {
       await axios.post(url, payload);
     } catch (error) {
