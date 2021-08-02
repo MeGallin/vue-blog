@@ -14,7 +14,7 @@ if(isset($postdata) && !empty($postdata)) {
      $pwd = $request['pwd'];
 
      if(!empty($name) && !empty($surname) && !empty($email) && !empty($pwd)){
-        $message = $name." ".$surname. ", registered with this email address:\r\n ".$email. "\r\n and password: ". $pwd;
+        $message = "Welcome to VUE-BLOG ".$name." ".$surname. ". Your registration was successful and you registered with the following email address:\r\n ".$email. " and password: ". $pwd.".";
      }else{
         $message = "This message is only visible to the garyallin.uk It is a contact request message from your website from " .$name. " and email address: " .$email;
      }    
