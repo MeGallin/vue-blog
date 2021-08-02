@@ -8,6 +8,7 @@ const state = {
   postLikeData: {},
   postDisLikeData: {},
   regData: [],
+  regEmail: [],
   emailExists: '',
   registeredSuccess: false,
   userData: {},
@@ -21,6 +22,7 @@ const getters = {
   postLikeData: (state) => state.postLikeData,
   postDisLikeData: (state) => state.postDisLikeData,
   regData: (state) => state.regData,
+  regEmail: (state) => state.regEmail,
   userLoginFail: (state) => state.userLoginFail,
   emailExists: (state) => state.emailExists,
   isRegisteredSuccess: (state) => state.registeredSuccess,
@@ -52,9 +54,19 @@ const actions = {
       } else {
         context.commit('SET_REGISTRATION_DATA', regData);
         context.commit('SET_EXISTING_EMAIL', '');
+        context.dispatch('userRegistrationEmail', regData);
         state.isAuthenticated = false;
         $router.replace({ name: 'Login' });
       }
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async userRegistrationEmail(context, payload) {
+    const url = API_URL.userRegistrationEmailUrl;
+    try {
+      await axios.post(url, payload);
+      context.commit('SET_REGISTRATION_EMAIL', payload);
     } catch (error) {
       console.log(error);
     }
@@ -143,7 +155,6 @@ const actions = {
   },
   // Action for the contact form
   async postFormData(context, payload) {
-    console.log(context);
     const url = API_URL.postFormUrl;
     try {
       await axios.post(url, payload);
@@ -162,6 +173,9 @@ const mutations = {
       state.registeredSuccess = false;
     }, 6000);
     state.regData = regData;
+  },
+  SET_REGISTRATION_EMAIL(state, payload) {
+    state.regEmail = payload;
   },
   SET_EXISTING_EMAIL(state, payload) {
     state.emailExists = payload;
