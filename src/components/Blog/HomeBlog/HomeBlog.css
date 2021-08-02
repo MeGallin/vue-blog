@@ -34,13 +34,21 @@
 }
 .item:nth-child(even):hover {
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.8);
-  transition: background-color 300ms linear;
+  background-image: linear-gradient(
+    to right,
+    rgba(100, 100, 100, 0.7),
+    rgba(51, 51, 51, 0.1)
+  );
+  transition: background-image 600ms linear;
 }
 .item:nth-child(odd):hover {
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.8);
-  transition: background-color 300ms linear;
+  background-image: linear-gradient(
+    to right,
+    rgba(100, 100, 100, 0.7),
+    rgba(51, 51, 51, 0.1)
+  );
+  transition: background-image 600ms linear;
 }
 
 .blog-footer-wrapper {
