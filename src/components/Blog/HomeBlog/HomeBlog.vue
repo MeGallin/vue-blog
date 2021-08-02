@@ -39,7 +39,7 @@
           class="item"
           @click="handleShowBlog(index)"
         >
-          <h3 class="underline-dark">
+          <h3>
             <span v-html="matchName(blog.heading)"></span>
           </h3>
 
@@ -53,7 +53,7 @@
 
     <div class="blog-box" v-if="hideTitles">
       <div>
-        <h1 v-if="filteredBlogs[index] !== undefined" class="underline-light">
+        <h1 v-if="filteredBlogs[index] !== undefined">
           {{ filteredBlogs[index].heading }}
         </h1>
 
@@ -141,7 +141,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['blogs', 'userData', 'isAuthenticated']),
+    ...mapGetters(['blogs', 'isAuthenticated']),
     filteredBlogs() {
       return this.blogs.filter((blog) => {
         return blog.heading.toLowerCase().match(this.search);
