@@ -18,14 +18,14 @@ if(isset($postdata) && !empty($postdata))
   }
     
   // Sanitize.
-  $id = mysqli_real_escape_string($conn, (int)$request->id);
+  $id = mysqli_real_escape_string($conn, (int)$request->id); 
   $name = mysqli_real_escape_string($conn, trim($request->name));
   $heading = mysqli_real_escape_string($conn, trim($request->heading));
   $message = mysqli_real_escape_string($conn, trim($request->message)); 
-  $admin = mysqli_real_escape_string($conn, trim($request->admin));
+  $admin = mysqli_real_escape_string($conn, trim($request->admin)); 
 
   // Update.
-  $sql = "UPDATE `messages` SET `name`='$name',`heading`='$heading',`message`='$message', `admin`='$admin' WHERE `id` = '{$id}' LIMIT 1";
+  $sql = "UPDATE `messages` SET `name`='$name',`heading`='$heading',`message`='$message',`admin`='$admin' WHERE `id` = '{$id}' LIMIT 1";
 
   if(mysqli_query($conn, $sql))
   {

@@ -14,6 +14,19 @@
         "
       >
         <div>
+          <label for="uuid"
+            >UUID
+            <input
+              readonly
+              type="text"
+              name="uuid"
+              id="uuid"
+              v-model="uuid"
+              class="entered"
+            />
+          </label>
+        </div>
+        <div>
           <label for="name"
             >Name
             <input
@@ -102,6 +115,9 @@ export default {
     fullName() {
       return this.userData[0].name + ' ' + this.userData[0].surname;
     },
+    uuid() {
+      return this.userData[0].uuid;
+    },
   },
   methods: {
     handleToggle() {
@@ -117,11 +133,16 @@ export default {
       this.heading = heading;
       this.message = message;
 
+      const nonAdmin = 0;
+
       const postBlogData = {
+        uuid: this.uuid,
         name: this.name,
         heading: this.heading,
         message: this.message,
+        admin: nonAdmin,
       };
+
       $Store.dispatch('postBlog', postBlogData);
       this.name = '';
       this.heading = '';
