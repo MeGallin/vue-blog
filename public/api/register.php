@@ -13,6 +13,7 @@ if(isset($postdata) && !empty($postdata))
   $surname = mysqli_real_escape_string($conn, trim($request->surname));
   $email = mysqli_real_escape_string($conn, trim($request->email)); 
   $pwd = mysqli_real_escape_string($conn, trim($request->pwd));   
+  $uuid = mysqli_real_escape_string($conn, trim($request->uuid));
 
 
   //CHeck if email exists
@@ -33,24 +34,8 @@ if(isset($postdata) && !empty($postdata))
   if (count($errors) == 0) {
     $pwd = md5($pwd);//encrypt the password before saving in the database
 
-    // sql to create table
-// $sqlTable = "CREATE TABLE $name (
-//   Id INT(6) AUTO_INCREMENT,
-//   name VARCHAR(30) NOT NULL,
-//   surname VARCHAR(30) NOT NULL,
-//   email VARCHAR(50),
-//   pwd VARCHAR(100),
-//   PRIMARY KEY  (Id)
-//   )";
-
-// if ($conn->query($sqlTable) === TRUE) {
-//   echo "Table . $name . created successfully";
-// } else {
-//   echo "Error creating table: " . $conn->error . $name;
-// }
-
-  $sql = "INSERT INTO users (`name`,`surname`, `email`,`pwd`) VALUES 
-  ('{$name}','{$surname}','$email','$pwd')";
+  $sql = "INSERT INTO users (`name`,`surname`, `email`,`pwd`,`uuid`) VALUES 
+  ('$name','$surname','$email','$pwd','$uuid')";
 
   if(mysqli_query($conn,$sql))
   {
@@ -59,7 +44,8 @@ if(isset($postdata) && !empty($postdata))
       'name'    => $name,
       'surname' => $surname,
       'email' => $email,
-      'pwd' => $pwd
+      'pwd' => $pwd,
+      'uuid' => $uuid,
     ];
     echo json_encode($authdata);
   }
@@ -67,6 +53,8 @@ if(isset($postdata) && !empty($postdata))
   {
     http_response_code(422);
   }
+} else {
+  echo json_encode($errors);
 }
 }
 ?>
