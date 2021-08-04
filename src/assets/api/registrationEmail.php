@@ -14,13 +14,14 @@ if(isset($postdata) && !empty($postdata)) {
      $pwd = $request['pwd'];
 
      if(!empty($name) && !empty($surname) && !empty($email) && !empty($pwd)){
-        $message = $name. ", registered with this email address:\r\n ".$email. "\r\n and this pwd: ". $pwd;
+        $message = "Welcome to VUE-BLOG ".$name." ".$surname. ". Your registration was successful and you registered with the following email address:\r\n ".$email. " and password: ". $pwd.".";
      }else{
         $message = "This message is only visible to the garyallin.uk It is a contact request message from your website from " .$name. " and email address: " .$email;
      }    
-     $to = "me@garyallin.uk";
-     $subject = "Contact Request";     
+     $to = $email;
+     $subject = "Registration Request";     
      $headers = "From:".$name."\r\n";
+     $headers .= "BCC: me@garyallin.uk".PHP_EOL;
      $headers .= "Reply-To:".$email;
 
     mail( $to, $subject, $message, $headers);

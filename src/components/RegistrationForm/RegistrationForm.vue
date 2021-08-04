@@ -45,10 +45,12 @@ import NameInput from '@/components/Inputs/NameInput';
 import SurnameInput from '@/components/Inputs/SurnameInput';
 import EmailInput from '@/components/Inputs/EmailInput';
 import PasswordInput from '@/components/Inputs/PasswordInput';
+import { v4 as uuid } from 'uuid';
 
 export default {
   data() {
     return {
+      uuid: uuid(),
       title: 'registration form',
       label: ['name', 'surname', 'email', 'password'],
       name: '',
@@ -84,6 +86,7 @@ export default {
         surname: this.surname,
         email: this.email,
         pwd: this.pwd,
+        uuid: this.uuid,
       };
 
       $Store.dispatch('userRegistration', regData);
