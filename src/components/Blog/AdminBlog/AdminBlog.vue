@@ -7,32 +7,57 @@
         <p>{{ blog.posted }}</p>
         <p>{{ blog.name }}</p>
 
-        <button
-          @click="handleDeleteBlog(blog.id, blog.name, userData)"
-          :class="
-            blog.name === userData[0].name + userData[0].surname ||
-            userData[0].email === 'admin@mail.com'
-              ? 'highLiteUserName'
-              : 'notHighLiteUserName'
-          "
-          title="Green button means you DELETE"
-        >
-          Delete Post
-        </button>
-        <button
-          v-if="!showUpdateForm"
-          @click="showForm(blog.id, blog.name, userData)"
-          :class="
-            blog.name === userData[0].name + userData[0].surname ||
-            userData[0].email === 'admin@mail.com'
-              ? 'highLiteUserName'
-              : 'notHighLiteUserName'
-          "
-          title="Green button means you EDIT"
-        >
-          Edit Post
-        </button>
+        <div class="buttonWrapper">
+          <div>
+            <button
+              v-if="!showDeleteButton"
+              @click="showDeleteButton = !showDeleteButton"
+              :class="
+                blog.name === userData[0].name + userData[0].surname ||
+                userData[0].email === 'admin@mail.com'
+                  ? 'highLiteUserName'
+                  : 'notHighLiteUserName'
+              "
+            >
+              Remove Post
+            </button>
 
+            <button
+              v-if="showDeleteButton"
+              @click="handleDeleteBlog(blog.id, blog.name, userData)"
+              :class="
+                blog.name === userData[0].name + userData[0].surname ||
+                userData[0].email === 'admin@mail.com'
+                  ? 'highLiteUserName'
+                  : 'notHighLiteUserName'
+              "
+              title="This post will be deleted"
+            >
+              Confirm Deletion
+            </button>
+
+            <button
+              v-if="showDeleteButton"
+              @click="showDeleteButton = !showDeleteButton"
+              title="Deletion action will be cancelled"
+            >
+              Cancel
+            </button>
+          </div>
+          <button
+            v-if="!showUpdateForm"
+            @click="showForm(blog.id, blog.name, userData)"
+            :class="
+              blog.name === userData[0].name + userData[0].surname ||
+              userData[0].email === 'admin@mail.com'
+                ? 'highLiteUserName'
+                : 'notHighLiteUserName'
+            "
+            title="Green button means you EDIT"
+          >
+            Edit Post
+          </button>
+        </div>
         <hr />
         <div v-if="showUpdateForm && blog.id === showFormId">
           <fieldset class="fieldSet">
@@ -149,6 +174,7 @@ export default {
       wordSwap: '',
       readOnly: true,
       adminValue: '1',
+      showDeleteButton: false,
     };
   },
   computed: {
