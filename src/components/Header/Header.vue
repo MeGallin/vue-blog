@@ -1,18 +1,28 @@
 <template>
   <nav>
     <div>
-      <router-link to="/">Home</router-link> |
+      <router-link to="/" exact-active-class="exact-active">Home</router-link> |
 
       <span v-if="isAuthenticated">
-        <router-link to="/admin">Admin</router-link> |
+        <router-link to="/admin" exact-active-class="exact-active"
+          >Admin</router-link
+        >
+        |
       </span>
       <span v-if="isAuthenticated">
-        <router-link to="/register">Register</router-link> |
+        <router-link to="/register" exact-active-class="exact-active"
+          >Register</router-link
+        >
+        |
       </span>
-      <router-link to="/about">About</router-link>
+      <router-link to="/about" exact-active-class="exact-active"
+        >About</router-link
+      >
     </div>
     <div v-if="!isAuthenticated">
-      <router-link to="/login"> <button>Login</button> </router-link>
+      <router-link to="/login" exact-active-class="exact-active">
+        <button>Login</button>
+      </router-link>
     </div>
     <Logout />
   </nav>
