@@ -45,3 +45,7 @@
   background-color: crimson;
   filter: blur(4px);
 }
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+}
